@@ -9,7 +9,7 @@ func Selection(nums []int) {
 	for i := 0; i < l; i++ {
 		min := i
 		for j := i + 1; j < l; j++ {
-			if nums[j] < nums[i] {
+			if nums[j] < nums[min] {
 				min = j
 			}
 		}
