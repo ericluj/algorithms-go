@@ -1,10 +1,11 @@
 package sort
 
 import (
+	"fmt"
 	"testing"
 )
 
-var data = []int{5, 39, 6666, 9, 54, 777, 324}
+var data = []int{5, 7, 3, 2, 0, 1, 6, 4, 9, 8}
 
 // IsSorted 判断是否为有序数组
 func IsSorted(t *testing.T, nums []int) {
@@ -14,10 +15,15 @@ func IsSorted(t *testing.T, nums []int) {
 			return
 		}
 	}
-
+	fmt.Println(nums)
 }
 
 func TestSelection(t *testing.T) {
 	Selection(data)
+	IsSorted(t, data)
+}
+
+func TestInsertion(t *testing.T) {
+	Insertion(data)
 	IsSorted(t, data)
 }
