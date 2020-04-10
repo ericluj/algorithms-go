@@ -27,3 +27,8 @@ func TestInsertion(t *testing.T) {
 	Insertion(data)
 	IsSorted(t, data)
 }
+
+func TestShell(t *testing.T) {
+	Shell(data)
+	IsSorted(t, data)
+}
