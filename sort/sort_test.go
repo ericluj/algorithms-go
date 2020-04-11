@@ -47,3 +47,8 @@ func TestQuick(t *testing.T) {
 	Quick(data)
 	IsSorted(t, data)
 }
+
+func TestQuick3way(t *testing.T) {
+	Quick3way(data)
+	IsSorted(t, data)
+}
