@@ -1,5 +1,7 @@
 package sort
 
+import "algorithms-go/lib"
+
 // Shell 希尔排序
 func Shell(nums []int) {
 	//插入排序的改进版本
@@ -18,7 +20,7 @@ func Shell(nums []int) {
 		//将数组变为h有序
 		for i := h; i < l; i++ {
 			for j := i; j >= h && nums[j] < nums[j-h]; j -= h {
-				Exch(nums, j, j-h)
+				lib.Exch(nums, j, j-h)
 			}
 		}
 
