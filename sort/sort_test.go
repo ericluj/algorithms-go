@@ -32,3 +32,13 @@ func TestShell(t *testing.T) {
 	Shell(data)
 	IsSorted(t, data)
 }
+
+func TestMerge(t *testing.T) {
+	Merge(data)
+	IsSorted(t, data)
+}
+
+func TestMergeBu(t *testing.T) {
+	MergeBu(data)
+	IsSorted(t, data)
+}

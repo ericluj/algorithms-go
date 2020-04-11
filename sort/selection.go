@@ -1,5 +1,7 @@
 package sort
 
+import "algorithms-go/lib"
+
 // Selection 选择排序
 func Selection(nums []int) {
 	//先找到数组中最小的元素，其次将它和数组第一个元素交换位置
@@ -14,13 +16,6 @@ func Selection(nums []int) {
 				min = j
 			}
 		}
-		Exch(nums, i, min)
+		lib.Exch(nums, i, min)
 	}
-}
-
-// Exch 交换数组两个元素位置
-func Exch(nums []int, i, j int) {
-	temp := nums[i]
-	nums[i] = nums[j]
-	nums[j] = temp
 }
