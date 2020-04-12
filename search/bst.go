@@ -43,6 +43,9 @@ func (b *BST) Get(k Key) Val {
 }
 
 func get(n *Node, k Key) Val {
+	//在以n为根结点的子树中查找并返回k对应的值
+	//若找不到返回nil
+
 	if n == nil {
 		return nil
 	}
@@ -61,6 +64,9 @@ func (b *BST) Put(k Key, v Val) {
 }
 
 func put(n *Node, k Key, v Val) *Node {
+	//如果k存在于以n为根结点的子树中则更新它的值
+	//否则将以k,v为键值对的新结点插入到该子树中
+
 	if n == nil {
 		return &Node{Key: k, Val: v, Num: 1}
 	}
