@@ -81,3 +81,52 @@ func put(n *Node, k Key, v Val) *Node {
 	n.Num = n.Left.Size() + n.Right.Size() + 1
 	return n
 }
+
+func (b *BST) Min() Key {
+	return min(b.Root).Key
+}
+
+func min(n *Node) *Node {
+	if n.Left == nil {
+		return n
+	}
+	return min(n.Left)
+}
+
+func (b *BST) Max() Key {
+	return max(b.Root).Key
+}
+
+func max(n *Node) *Node {
+	if n.Right == nil {
+		return n
+	}
+	return max(n.Right)
+}
+
+// Floor 向下取整获取key
+func (b *BST) Floor(k Key) Key {
+	n := floor(b.Root, k)
+	if n == nil {
+		return ""
+	}
+	return n.Key
+}
+
+func floor(n *Node, k Key) *Node {
+	if n == nil {
+		return nil
+	}
+	cmp := k.CompareTo(n.Key)
+	if cmp == 0 {
+		return n
+	} else if cmp < 0 {
+		return floor(n.Left, k)
+	}
+	t := floor(n.Right, k)
+	if t != nil {
+		return t
+	} else {
+		return n
+	}
+}
