@@ -130,3 +130,22 @@ func floor(n *Node, k Key) *Node {
 		return n
 	}
 }
+
+// Select 寻找排名为k的Key(即树中正好有k个小于它的键)
+func (b *BST) Select(k int) Key {
+	return selectF(b.Root, k).Key
+}
+
+func selectF(n *Node, k int) *Node {
+	if n == nil {
+		return nil
+	}
+	t := n.Left.Size()
+	if t > k {
+		return selectF(n.Left, k)
+	} else if t < k {
+		return selectF(n.Right, k-t-1)
+	} else {
+		return n
+	}
+}
