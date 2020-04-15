@@ -1,5 +1,7 @@
 package search
 
+import "fmt"
+
 type Key string
 
 func (k Key) CompareTo(key Key) int {
@@ -148,4 +150,61 @@ func selectF(n *Node, k int) *Node {
 	} else {
 		return n
 	}
+}
+
+// DeleteMin ...
+func (b *BST) DeleteMin() {
+	b.Root = deleteMin(b.Root)
+}
+
+func deleteMin(n *Node) *Node {
+	if n.Left == nil {
+		return n.Right
+	}
+	n.Left = deleteMin(n.Left)
+	n.Num = n.Left.Size() + n.Right.Size() + 1
+	return n
+}
+
+// Delete ...
+func (b *BST) Delete(k Key) {
+	b.Root = deleteF(b.Root, k)
+}
+
+func deleteF(n *Node, k Key) *Node {
+	if n == nil {
+		return nil
+	}
+	cmp := k.CompareTo(n.Key)
+	if cmp < 0 {
+		n.Left = deleteF(n.Left, k)
+	} else if cmp > 0 {
+		n.Right = deleteF(n.Right, k)
+	} else {
+		if n.Right == nil {
+			return n.Left
+		}
+		if n.Left == nil {
+			return n.Right
+		}
+		t := n
+		n = min(t.Right)
+		n.Right = deleteMin(n.Right)
+		n.Left = t.Left
+	}
+	n.Num = n.Left.Size() + n.Right.Size() + 1
+	return n
+}
+
+func (b *BST) Print() {
+	print(b.Root)
+}
+
+func print(n *Node) {
+	if n == nil {
+		return
+	}
+	print(n.Left)
+	fmt.Println(n.Key)
+	print(n.Right)
 }
