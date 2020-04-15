@@ -18,6 +18,10 @@ func TestBST(t *testing.T) {
 	fmt.Println(b.Get(Key("key" + strconv.Itoa(116))))
 	fmt.Println(b.Min())
 	fmt.Println(b.Max())
-	fmt.Println(b.Floor(Key("key126")))
+	fmt.Println(b.Floor("key126"))
 	fmt.Println(b.Select(6))
+	b.Delete("key106")
+	fmt.Println(b.Get("key106"))
+	fmt.Println("--------")
+	b.Print()
 }
