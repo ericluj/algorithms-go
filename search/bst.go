@@ -16,6 +16,7 @@ func (k Key) CompareTo(key Key) int {
 
 type Val interface{}
 
+// BST 二叉查找树
 type BST struct {
 	Root *Node
 }
