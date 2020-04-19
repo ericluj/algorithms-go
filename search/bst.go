@@ -209,3 +209,23 @@ func print(n *Node) {
 	fmt.Println(n.Key)
 	print(n.Right)
 }
+
+// PrintStructure 打印树结构 todo 只按层打印了，需要画出完整树结构
+func (b *BST) PrintStructure() {
+	var tmp []*Node
+	queue := []*Node{b.Root}
+	for len(queue) > 0 {
+		tmp = []*Node{}
+		for _, v := range queue {
+			fmt.Print(v.Key + "-")
+			if v.Left != nil {
+				tmp = append(tmp, v.Left)
+			}
+			if v.Right != nil {
+				tmp = append(tmp, v.Right)
+			}
+		}
+		fmt.Println()
+		queue = tmp
+	}
+}
