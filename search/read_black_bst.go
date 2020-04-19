@@ -46,6 +46,28 @@ func (n *RBNode) Size() int {
 	}
 }
 
+// Get ...
+func (b *RedBlackBST) Get(k Key) Val {
+	return getRB(b.Root, k)
+}
+
+func getRB(n *RBNode, k Key) Val {
+	//在以n为根结点的子树中查找并返回k对应的值
+	//若找不到返回nil
+
+	if n == nil {
+		return nil
+	}
+	cmp := k.CompareTo(n.Key)
+	if cmp < 0 {
+		return getRB(n.Left, k)
+	} else if cmp > 0 {
+		return getRB(n.Right, k)
+	} else {
+		return n.Val
+	}
+}
+
 // 左旋 (右红链接会用到)
 func rotateLeft(h *RBNode) *RBNode {
 	x := h.Right                               //新的根结点是以前的右子结点
@@ -111,23 +133,24 @@ func putRB(h *RBNode, k Key, v Val) *RBNode {
 	return h
 }
 
-func (b *RedBlackBST) Get(k Key) Val {
-	return getRB(b.Root, k)
+// 删除结点的颜色转换，用于结点合并，将父结点部分给予子结点
+// 两个红链接将三个2-结点连起来构成一个4-结点
+func moveFlipColors(h *RBNode) {
+	h.Color = Black
+	h.Left.Color = Red
+	h.Right.Color = Red
 }
 
-func getRB(n *RBNode, k Key) Val {
-	//在以n为根结点的子树中查找并返回k对应的值
-	//若找不到返回nil
+func moveLeft(h *RBNode) *RBNode {
+	//如果当前结点左右均为2-结点，和父结点一起构成4-结点
+	//如果当前结点的右结点的左结点为红色，说明右结点非2-结点，从它借一个
 
-	if n == nil {
-		return nil
+	moveFlipColors(h)
+	if h.Right.Left.IsRed() {
+		//先右旋，再左旋，相当于把右侧结点作为父结点，父结点放到左侧了
+		h.Right = rotateRight(h.Right)
+		h = rotateLeft(h)
+		moveFlipColors(h) //为什么要有这一行？
 	}
-	cmp := k.CompareTo(n.Key)
-	if cmp < 0 {
-		return getRB(n.Left, k)
-	} else if cmp > 0 {
-		return getRB(n.Right, k)
-	} else {
-		return n.Val
-	}
+	return h
 }
