@@ -24,6 +24,8 @@ func TestBST(t *testing.T) {
 	fmt.Println(b.Get("key106"))
 	fmt.Println("--------")
 	b.Print()
+	fmt.Println("--------")
+	b.PrintStructure()
 }
 
 func TestRBBST(t *testing.T) {
