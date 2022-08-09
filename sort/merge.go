@@ -1,7 +1,7 @@
 package sort
 
 import (
-	"algorithms-go/lib"
+	"github.com/ericluj/algorithms-go/lib"
 )
 
 // merge 原地归并

@@ -10,7 +10,5 @@ func Min(a, b int) int {
 
 // Exch 交换数组两个元素位置
 func Exch(nums []int, i, j int) {
-	temp := nums[i]
-	nums[i] = nums[j]
-	nums[j] = temp
+	nums[i], nums[j] = nums[j], nums[i]
 }

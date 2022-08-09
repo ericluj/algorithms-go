@@ -1,6 +1,6 @@
 package sort
 
-import "algorithms-go/lib"
+import "github.com/ericluj/algorithms-go/lib"
 
 // Selection 选择排序
 func Selection(nums []int) {

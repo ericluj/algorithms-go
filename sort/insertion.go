@@ -1,6 +1,6 @@
 package sort
 
-import "algorithms-go/lib"
+import "github.com/ericluj/algorithms-go/lib"
 
 // Insertion 插入排序
 func Insertion(nums []int) {

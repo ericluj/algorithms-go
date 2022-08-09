@@ -1,6 +1,6 @@
 package sort
 
-import "algorithms-go/lib"
+import "github.com/ericluj/algorithms-go/lib"
 
 // Shell 希尔排序
 func Shell(nums []int) {

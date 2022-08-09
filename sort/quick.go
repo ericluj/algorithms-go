@@ -1,6 +1,6 @@
 package sort
 
-import "algorithms-go/lib"
+import "github.com/ericluj/algorithms-go/lib"
 
 // Quick 快速排序
 func Quick(nums []int) {
