@@ -2,20 +2,6 @@ package search
 
 import "fmt"
 
-type Key string
-
-func (k Key) CompareTo(key Key) int {
-	if k < key {
-		return -1
-	} else if k > key {
-		return 1
-	} else {
-		return 0
-	}
-}
-
-type Val interface{}
-
 // BST 二叉查找树
 type BST struct {
 	Root *Node

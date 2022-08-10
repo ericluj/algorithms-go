@@ -4,7 +4,20 @@ import (
 	"fmt"
 	"strconv"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
+
+func TestSST(t *testing.T) {
+	input := "SEARCHEXAMPLE"
+	sst := NewSST()
+	for i, a := range input {
+		sst.Put(Key(a), i)
+		fmt.Println(sst)
+	}
+
+	assert.Equal(t, 12, sst.Get("E"))
+}
 
 func TestBST(t *testing.T) {
 	b := NewBST()
