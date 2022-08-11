@@ -19,6 +19,10 @@ func TestSST(t *testing.T) {
 	assert.Equal(t, 12, sst.Get("E"))
 }
 
+func TestBinaryST(t *testing.T) {
+	fmt.Println(Rank(10, 0, 6))
+}
+
 func TestBST(t *testing.T) {
 	b := NewBST()
 	for i := 111; i <= 120; i++ {

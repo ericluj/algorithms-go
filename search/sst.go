@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 
+// 顺序查找（基于无序链表）
+
 type SNode struct {
 	k    Key
 	v    Val
