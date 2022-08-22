@@ -98,11 +98,3 @@ func (b *BinanryST) String() string {
 	}
 	return strings.Join(arr, ",")
 }
-
-func insert[T Key | Val](silce []T, i int, val T) []T {
-	tmp := make([]T, 0)
-	tmp = append(tmp, silce[:i]...)
-	tmp = append(tmp, val)
-	tmp = append(tmp, silce[i:]...)
-	return tmp
-}

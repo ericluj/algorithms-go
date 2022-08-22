@@ -8,6 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// 顺序查找（基于无序链表）
 func TestSST(t *testing.T) {
 	input := "SEARCHEXAMPLE"
 	st := NewSST()
@@ -19,6 +20,7 @@ func TestSST(t *testing.T) {
 	assert.Equal(t, 12, st.Get("E"))
 }
 
+// 二分查找（基于有序数组）
 func TestBinaryST(t *testing.T) {
 	input := "SEARCHEXAMPLE"
 	st := NewBinanryST()
