@@ -10,17 +10,24 @@ import (
 
 func TestSST(t *testing.T) {
 	input := "SEARCHEXAMPLE"
-	sst := NewSST()
+	st := NewSST()
 	for i, a := range input {
-		sst.Put(Key(a), i)
-		fmt.Println(sst)
+		st.Put(Key(a), i)
+		fmt.Println(st)
 	}
 
-	assert.Equal(t, 12, sst.Get("E"))
+	assert.Equal(t, 12, st.Get("E"))
 }
 
 func TestBinaryST(t *testing.T) {
-	fmt.Println(Rank(10, 0, 6))
+	input := "SEARCHEXAMPLE"
+	st := NewBinanryST()
+	for i, a := range input {
+		st.Put(Key(a), i)
+		fmt.Println(st)
+	}
+
+	assert.Equal(t, 12, st.Get("E"))
 }
 
 func TestBST(t *testing.T) {

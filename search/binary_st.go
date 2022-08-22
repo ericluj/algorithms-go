@@ -28,16 +28,23 @@ func (b *BinanryST) Get(k Key) Val {
 }
 
 func (b *BinanryST) Put(k Key, v Val) {
+	// 递归二分查找
 	i := b.Rank(k, 0, len(b.keys)-1)
+
+	// 迭代二分查找
+	// i := b.Rank2(k)
+
 	if i < len(b.keys) && b.keys[i] == k { // 找到了更新值
 		b.vals[i] = v
 		return
 	}
 
 	//找不到插入新元素
+	b.keys = insert(b.keys, i, k)
+	b.vals = insert(b.vals, i, v)
 }
 
-// 二分查找 返回的是比查询的k小的键数量
+// 递归二分查找 返回的是比查询的k小的键数量
 func (b *BinanryST) Rank(k Key, low, high int) int {
 	// 向左没查到（所有数都比k大），low = 0		high = -1
 	// 向右没查到（所有数都比k小），low = len	high = len - 1
@@ -51,15 +58,34 @@ func (b *BinanryST) Rank(k Key, low, high int) int {
 
 	if cmp == 0 {
 		return mid
-	}
-
-	if cmp < 0 { // vals[mid] < vals[k]
+	} else if cmp < 0 { // vals[mid] < vals[k]
 		low = mid + 1
 	} else if cmp > 0 { // vals[mid] > vals[k]
 		high = mid - 1
 	}
 
 	return b.Rank(k, low, high)
+}
+
+// 迭代二分查找 返回的是比查询的k小的键数量
+func (b *BinanryST) Rank2(k Key) int {
+	low := 0
+	high := len(b.keys) - 1
+
+	for low <= high {
+		mid := low + (high-low)/2
+		cmp := b.keys[mid].CompareTo(k)
+
+		if cmp == 0 {
+			return mid
+		} else if cmp < 0 {
+			low = mid + 1
+		} else if cmp > 0 {
+			high = mid - 1
+		}
+	}
+
+	return low
 }
 
 func (b *BinanryST) String() string {
@@ -71,4 +97,12 @@ func (b *BinanryST) String() string {
 		arr = append(arr, fmt.Sprintf("%s:%v", keys[i], vals[i]))
 	}
 	return strings.Join(arr, ",")
+}
+
+func insert[T Key | Val](silce []T, i int, val T) []T {
+	tmp := make([]T, 0)
+	tmp = append(tmp, silce[:i]...)
+	tmp = append(tmp, val)
+	tmp = append(tmp, silce[i:]...)
+	return tmp
 }
