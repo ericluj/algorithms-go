@@ -1,217 +1,74 @@
 package search
 
-import "fmt"
-
 // BST 二叉查找树
 type BST struct {
 	Root *Node
 }
 
-func NewBST() BST {
-	return BST{}
-}
-
 type Node struct {
 	Key   Key   //键
 	Val   Val   //值
+	Num   int   //以该结点为根的子树中的结点总数（包括自己）
 	Left  *Node //左子结点
 	Right *Node //右子结点
-	Num   int   //以该结点为根的子树中的结点总数
 }
 
-func (n *Node) Size() int {
-	if n == nil {
+func NewBST() *BST {
+	return &BST{}
+}
+
+func size(node *Node) int {
+	if node == nil {
 		return 0
-	} else {
-		return n.Num
 	}
+
+	return node.Num
 }
 
-func (b *BST) Get(k Key) Val {
-	return get(b.Root, k)
+func (bst *BST) Get(k Key) Val {
+	return get(bst.Root, k)
 }
 
-func get(n *Node, k Key) Val {
-	//在以n为根结点的子树中查找并返回k对应的值
-	//若找不到返回nil
-
-	if n == nil {
+func get(node *Node, k Key) Val {
+	// 找不到返回nil
+	if node == nil {
 		return nil
 	}
-	cmp := k.CompareTo(n.Key)
+
+	cmp := k.CompareTo(node.Key)
 	if cmp < 0 {
-		return get(n.Left, k)
+		return get(node.Left, k)
 	} else if cmp > 0 {
-		return get(n.Right, k)
-	} else {
-		return n.Val
+		return get(node.Right, k)
 	}
+
+	// 相等直接返回
+	return node.Val
 }
 
-func (b *BST) Put(k Key, v Val) {
-	b.Root = put(b.Root, k, v)
+func (bst *BST) Put(k Key, v Val) {
+	bst.Root = put(bst.Root, k, v)
 }
 
-func put(n *Node, k Key, v Val) *Node {
-	//如果k存在于以n为根结点的子树中则更新它的值
-	//否则将以k,v为键值对的新结点插入到该子树中
-
-	if n == nil {
+func put(node *Node, k Key, v Val) *Node {
+	// 没有找到那么返回一个新结点，这个新结点会被连接到最后一个查找的结点上
+	if node == nil {
 		return &Node{Key: k, Val: v, Num: 1}
 	}
-	cmp := k.CompareTo(n.Key)
+
+	cmp := k.CompareTo(node.Key)
 	if cmp < 0 {
-		n.Left = put(n.Left, k, v)
+		// 没有找到返回新结点，新结点连接在left
+		node.Left = put(node.Left, k, v)
 	} else if cmp > 0 {
-		n.Right = put(n.Right, k, v)
+		// 没有找到返回新结点，新结点连接在right
+		node.Right = put(node.Right, k, v)
 	} else {
-		n.Val = v
+		// 找到了结点，更新值
+		node.Val = v
 	}
-	n.Num = n.Left.Size() + n.Right.Size() + 1
-	return n
-}
 
-func (b *BST) Min() Key {
-	return min(b.Root).Key
-}
-
-func min(n *Node) *Node {
-	if n.Left == nil {
-		return n
-	}
-	return min(n.Left)
-}
-
-func (b *BST) Max() Key {
-	return max(b.Root).Key
-}
-
-func max(n *Node) *Node {
-	if n.Right == nil {
-		return n
-	}
-	return max(n.Right)
-}
-
-// Floor 向下取整获取key
-func (b *BST) Floor(k Key) Key {
-	n := floor(b.Root, k)
-	if n == nil {
-		return ""
-	}
-	return n.Key
-}
-
-func floor(n *Node, k Key) *Node {
-	if n == nil {
-		return nil
-	}
-	cmp := k.CompareTo(n.Key)
-	if cmp == 0 {
-		return n
-	} else if cmp < 0 {
-		return floor(n.Left, k)
-	}
-	t := floor(n.Right, k)
-	if t != nil {
-		return t
-	} else {
-		return n
-	}
-}
-
-// Select 寻找排名为k的Key(即树中正好有k个小于它的键)
-func (b *BST) Select(k int) Key {
-	return selectF(b.Root, k).Key
-}
-
-func selectF(n *Node, k int) *Node {
-	if n == nil {
-		return nil
-	}
-	t := n.Left.Size()
-	if t > k {
-		return selectF(n.Left, k)
-	} else if t < k {
-		return selectF(n.Right, k-t-1)
-	} else {
-		return n
-	}
-}
-
-// DeleteMin ...
-func (b *BST) DeleteMin() {
-	b.Root = deleteMin(b.Root)
-}
-
-func deleteMin(n *Node) *Node {
-	if n.Left == nil {
-		return n.Right
-	}
-	n.Left = deleteMin(n.Left)
-	n.Num = n.Left.Size() + n.Right.Size() + 1
-	return n
-}
-
-// Delete ...
-func (b *BST) Delete(k Key) {
-	b.Root = deleteF(b.Root, k)
-}
-
-func deleteF(n *Node, k Key) *Node {
-	if n == nil {
-		return nil
-	}
-	cmp := k.CompareTo(n.Key)
-	if cmp < 0 {
-		n.Left = deleteF(n.Left, k)
-	} else if cmp > 0 {
-		n.Right = deleteF(n.Right, k)
-	} else {
-		if n.Right == nil {
-			return n.Left
-		}
-		if n.Left == nil {
-			return n.Right
-		}
-		t := n
-		n = min(t.Right)
-		n.Right = deleteMin(n.Right)
-		n.Left = t.Left
-	}
-	n.Num = n.Left.Size() + n.Right.Size() + 1
-	return n
-}
-
-func (b *BST) Print() {
-	print(b.Root)
-}
-
-func print(n *Node) {
-	if n == nil {
-		return
-	}
-	print(n.Left)
-	fmt.Println(n.Key)
-	print(n.Right)
-}
-
-// PrintStructure 打印树结构 todo 只按层打印了，需要画出完整树结构
-func (b *BST) PrintStructure() {
-	var tmp []*Node
-	queue := []*Node{b.Root}
-	for len(queue) > 0 {
-		tmp = []*Node{}
-		for _, v := range queue {
-			fmt.Print(v.Key + "-")
-			if v.Left != nil {
-				tmp = append(tmp, v.Left)
-			}
-			if v.Right != nil {
-				tmp = append(tmp, v.Right)
-			}
-		}
-		fmt.Println()
-		queue = tmp
-	}
+	// 插入新结点或者更新了值，重新计算num
+	node.Num = size(node.Left) + size(node.Right) + 1
+	return node
 }
