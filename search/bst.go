@@ -72,3 +72,38 @@ func put(node *Node, k Key, v Val) *Node {
 	node.Num = size(node.Left) + size(node.Right) + 1
 	return node
 }
+
+// 获取小于等于Key的最大值
+func (bst *BST) Floor(k Key) Key {
+	node := floor(bst.Root, k)
+	if node == nil {
+		return ""
+	}
+	return node.Key
+}
+
+func floor(node *Node, k Key) *Node {
+	if node == nil {
+		return nil
+	}
+	cmp := k.CompareTo(node.Key)
+
+	// 相等直接返回
+	if cmp == 0 {
+		return node
+	}
+
+	// 小于的话那么，最接近的值在左子树
+	if cmp < 0 {
+		return floor(node.Left, k)
+	}
+
+	// 大于的话要判断右子树有没有小于k的值
+	tmp := floor(node.Right, k)
+	// 如果有，那么就是它
+	if tmp != nil {
+		return tmp
+	}
+	// 如果没有，那么就是当前node本身
+	return node
+}

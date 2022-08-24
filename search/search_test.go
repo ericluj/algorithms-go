@@ -42,6 +42,7 @@ func TestBST(t *testing.T) {
 	}
 
 	assert.Equal(t, 12, st.Get("E"))
+	assert.Equal(t, Key("E"), st.Floor("G"))
 }
 
 func TestRBBST(t *testing.T) {
