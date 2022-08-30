@@ -1,5 +1,7 @@
 package search
 
+import "fmt"
+
 // BST 二叉查找树
 type BST struct {
 	Root *Node
@@ -23,6 +25,22 @@ func size(node *Node) int {
 	}
 
 	return node.Num
+}
+
+func (bst *BST) Print() {
+	silce := make([]Key, 0)
+	print(&silce, bst.Root)
+	fmt.Println(silce)
+}
+
+func print(silce *[]Key, node *Node) {
+	if node.Left != nil {
+		print(silce, node.Left)
+	}
+	*silce = append(*silce, node.Key)
+	if node.Right != nil {
+		print(silce, node.Right)
+	}
 }
 
 func (bst *BST) Get(k Key) Val {
@@ -106,4 +124,79 @@ func floor(node *Node, k Key) *Node {
 	}
 	// 如果没有，那么就是当前node本身
 	return node
+}
+
+// 从小往大排名，返回排名第num的Key（从0开始排名）
+func (bst *BST) Select(num int) Key {
+	node := selectFuc(bst.Root, num)
+	if node == nil {
+		return ""
+	}
+	return node.Key
+}
+
+func selectFuc(node *Node, n int) *Node {
+	if node == nil {
+		return nil
+	}
+	t := size(node.Left) // 注意这里是左子树
+	if t == n {          // 相等正好是第n名
+		return node
+	}
+	if t > n { // 如果左子树的数量大于n，那么排名第n肯定在左子树中
+		return selectFuc(node.Left, n)
+	}
+	if t < n { // 如果左子树的数量小于n，继续在右子树找到去掉（左子树数量+根结点1）后的排名
+		return selectFuc(node.Right, n-t-1)
+	}
+	return nil
+}
+
+// 从小往大排名，返回排名第num的Key（从1开始排名）
+func (bst *BST) SelectFromOne(n int) Key {
+	node := selectFromOne(bst.Root, n)
+	if node == nil {
+		return ""
+	}
+	return node.Key
+}
+
+func selectFromOne(node *Node, n int) *Node {
+	if node == nil {
+		return nil
+	}
+	t := size(node.Left) + 1 // 注意这里是左子树数量+根结点1
+	if t == n {
+		return node
+	}
+	if t > n {
+		return selectFromOne(node.Left, n)
+	}
+	if t < n {
+		return selectFromOne(node.Right, n-t)
+	}
+	return nil
+}
+
+// 获取Key的排名（从0开始）
+func (bst *BST) Rank(k Key) int {
+	return rank(bst.Root, k)
+}
+
+func rank(node *Node, k Key) int {
+	if node == nil {
+		return -1
+	}
+
+	cmp := k.CompareTo(node.Key)
+	if cmp == 0 {
+		return size(node.Left)
+	} else if cmp < 0 {
+		return rank(node.Left, k)
+	} else if cmp > 0 {
+		return size(node.Left) + 1 + rank(node.Right, k)
+	}
+
+	//不会走到这里
+	return -1
 }

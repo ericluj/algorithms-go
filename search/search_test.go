@@ -38,11 +38,13 @@ func TestBST(t *testing.T) {
 	st := NewBST()
 	for i, a := range input {
 		st.Put(Key(a), i)
-		fmt.Println(st)
 	}
-
+	st.Print()
 	assert.Equal(t, 12, st.Get("E"))
 	assert.Equal(t, Key("E"), st.Floor("G"))
+	assert.Equal(t, Key("H"), st.Select(3))
+	assert.Equal(t, Key("E"), st.SelectFromOne(3))
+	assert.Equal(t, 3, st.Rank(Key("H")))
 }
 
 func TestRBBST(t *testing.T) {
