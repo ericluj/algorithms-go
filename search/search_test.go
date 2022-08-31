@@ -34,17 +34,23 @@ func TestBinaryST(t *testing.T) {
 
 // 二叉查找树
 func TestBST(t *testing.T) {
-	input := "SEARCHEXAMPLE"
+	input := "SEARCHX"
 	st := NewBST()
 	for i, a := range input {
 		st.Put(Key(a), i)
 	}
 	st.Print()
-	assert.Equal(t, 12, st.Get("E"))
+	assert.Equal(t, 1, st.Get("E"))
 	assert.Equal(t, Key("E"), st.Floor("G"))
 	assert.Equal(t, Key("H"), st.Select(3))
 	assert.Equal(t, Key("E"), st.SelectFromOne(3))
 	assert.Equal(t, 3, st.Rank(Key("H")))
+	st.DeleteMin()
+	st.Print()
+	assert.Equal(t, Key("C"), st.Select(0))
+	assert.Equal(t, Key("C"), st.Min().Key)
+	st.Delete(Key("E"))
+	st.Print()
 }
 
 func TestRBBST(t *testing.T) {

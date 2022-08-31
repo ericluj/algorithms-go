@@ -200,3 +200,61 @@ func rank(node *Node, k Key) int {
 	//不会走到这里
 	return -1
 }
+
+func (bst *BST) Min() *Node {
+	return min(bst.Root)
+}
+
+func min(node *Node) *Node {
+	if node.Left == nil {
+		return node
+	}
+	return min(node.Left)
+}
+
+func (bst *BST) DeleteMin() {
+	bst.Root = deleteMin(bst.Root)
+}
+
+func deleteMin(node *Node) *Node {
+	if node.Left == nil {
+		return node.Right
+	}
+	node.Left = deleteMin(node.Left)
+	node.Num = size(node.Left) + size(node.Right) + 1
+	return node
+}
+
+func (bst *BST) Delete(k Key) {
+	bst.Root = delete(bst.Root, k)
+}
+
+func delete(node *Node, k Key) *Node {
+	if node == nil {
+		return nil
+	}
+
+	cmp := k.CompareTo(node.Key)
+	if cmp < 0 { // 接着在左子树删除
+		node.Left = delete(node.Left, k)
+	} else if cmp > 0 { // 接着在右子树删除
+		node.Right = delete(node.Right, k)
+	} else if cmp == 0 { // 删除的就是当前结点
+		// 如果是单子结点
+		if node.Left == nil {
+			return node.Right
+		}
+		if node.Right == nil {
+			return node.Left
+		}
+		// 如果是双子结点
+		// 创建新结点，替换原来的node
+		new := min(node.Right)
+		new.Right = deleteMin(node.Right)
+		new.Left = node.Left
+		node = new
+	}
+	node.Num = size(node.Left) + size(node.Right) + 1
+
+	return node
+}
