@@ -258,3 +258,36 @@ func delete(node *Node, k Key) *Node {
 
 	return node
 }
+
+func (bst *BST) Keys(low, high Key) []Key {
+	res := make([]Key, 0)
+	keys(bst.Root, low, high, &res)
+	return res
+}
+
+func keys(node *Node, low, high Key, res *[]Key) {
+	if node == nil {
+		return
+	}
+
+	lowCmp := node.Key.CompareTo(low)
+	highCmp := node.Key.CompareTo(high)
+	// 方法本身用中序遍历即可（但是这样需要遍历每一个元素）
+	// 范围查找所以我们可以去掉多余的遍历
+
+	// 只有当前结点大于low，才需要继续查找左子树
+	if lowCmp > 0 {
+		keys(node.Left, low, high, res)
+	}
+
+	// 结点在查找范围内，放入结果集
+	if lowCmp >= 0 && highCmp <= 0 {
+		*res = append(*res, node.Key)
+	}
+
+	// 只有当前结点小于high，才需要继续查找右子树
+	if highCmp < 0 {
+		keys(node.Right, low, high, res)
+	}
+
+}

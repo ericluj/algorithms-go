@@ -51,6 +51,7 @@ func TestBST(t *testing.T) {
 	assert.Equal(t, Key("C"), st.Min().Key)
 	st.Delete(Key("E"))
 	st.Print()
+	assert.Equal(t, []Key{Key("H"), Key("R"), Key("S")}, st.Keys(Key("H"), Key("S")))
 }
 
 func TestRBBST(t *testing.T) {
