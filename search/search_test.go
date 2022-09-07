@@ -54,7 +54,8 @@ func TestBST(t *testing.T) {
 	assert.Equal(t, []Key{Key("H"), Key("R"), Key("S")}, st.Keys(Key("H"), Key("S")))
 }
 
-func TestRBBST(t *testing.T) {
+// 红黑二叉查找树
+func TestRedBlackBST(t *testing.T) {
 	b := NewRedBlackBST()
 	for i := 111; i <= 120; i++ {
 		b.Put(Key("key"+strconv.Itoa(i)), i)
