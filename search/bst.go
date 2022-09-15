@@ -8,11 +8,11 @@ type BST struct {
 }
 
 type Node struct {
-	Key   Key   //键
-	Val   Val   //值
-	Num   int   //以该结点为根的子树中的结点总数（包括自己）
-	Left  *Node //左子结点
-	Right *Node //右子结点
+	Key   Key   // 键
+	Val   Val   // 值
+	Num   int   // 以该结点为根的子树中的结点总数（包括自己）
+	Left  *Node // 左子结点
+	Right *Node // 右子结点
 }
 
 func NewBST() *BST {
