@@ -48,3 +48,23 @@ func rotateLeft(n *RBNode) *RBNode {
 	n.Num = 1 + RBSize(n.Left) + RBSize(n.Right) // 重新计算n的Num
 	return t
 }
+
+// 右旋
+func rotateRight(n *RBNode) *RBNode {
+	t := n.Left
+	n.Left = t.Right
+	t.Right = n
+	t.Color = n.Color
+	n.Color = Red
+	t.Num = n.Num
+	n.Num = 1 + RBSize(n.Left) + RBSize(n.Right)
+	return t
+}
+
+// 颜色转换（使中结点颜色变红，相当于将它送入了父结点）
+// 两个子结点颜色由红变黑，父结点颜色由黑变红
+func flipColors(n *RBNode) {
+	n.Color = Red
+	n.Left.Color = Black
+	n.Right.Color = Black
+}
