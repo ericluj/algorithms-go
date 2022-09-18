@@ -2,6 +2,7 @@ package search
 
 // RedBlackBST 红黑二叉查找树
 type RedBlackBST struct {
+	Root *RBNode
 }
 
 const (
@@ -67,4 +68,68 @@ func flipColors(n *RBNode) {
 	n.Color = Red
 	n.Left.Color = Black
 	n.Right.Color = Black
+}
+
+func (r *RedBlackBST) Put(k Key, v Val) {
+	// 查找key，找到更新值，否则为它新建一个结点
+	r.Root = rbPut(r.Root, k, v)
+	// 如果发生颜色转换，根结点可能变为红色，按照定义空链接为黑色，所以根结点肯定为黑色
+	r.Root.Color = Black
+}
+
+func rbPut(n *RBNode, k Key, v Val) *RBNode {
+	// 如果一直没有找到，递归到空链接，那么新建结点，和父结点red链接相连
+	if n == nil {
+		return &RBNode{Key: k, Val: v, Num: 1, Color: Red}
+	}
+
+	// 引入了新结点或者更新了值
+	cmp := k.CompareTo(n.Key)
+	if cmp < 0 { // 小于，沿着左子树一直找（找不到的话会在left新建结点）
+		n.Left = rbPut(n.Left, k, v)
+	} else if cmp > 0 { // 大于，沿着右子树一直找（找不到的话会在right新建结点）
+		n.Right = rbPut(n.Right, k, v)
+	} else if cmp == 0 { // 找到了更新值
+		n.Val = v
+	}
+
+	// 判断当前结点本身是否需要有旋转或者颜色转换操作
+
+	// 递归操作中，未引入新结点前树一直是符合红黑树定义
+	// a.red链接均为左链接；
+	// b.没有任何结点同时和两条red链接相连；
+	// c.该树是完美黑色平衡，即任意空链接到根结点路径上black链接数量相同
+
+	// 如果2结点插入新结点：
+	//  a.left插入red结点
+	//	 无需操作
+	//  b.right插入red结点
+	//	 左旋
+
+	// 如果3结点插入新结点：
+	//  a.middle插入red结点
+	//	 左旋->右旋->颜色转换
+	//  b.left插入red结点
+	//	 右旋->颜色转换
+	//  c.right插入red结点
+	//	 颜色转换
+
+	// 结合上述插入情况，我们只需要依次判断操作后的结点是否需要(左旋，右旋，颜色转换）即可
+	// 步骤1：是否需要左旋（right红，left黑）
+	if n.Right.IsRed() && !n.Left.IsRed() {
+		n = rotateLeft(n)
+	}
+	// 步骤2：是否需要右旋（left红，left.left红）
+	// 经历了步骤1，right肯定是黑，但可能导致两个红链接相连
+	// 短路与，不会出现n.Left.Left的panic
+	if n.Left.IsRed() && n.Left.Left.IsRed() {
+		n = rotateRight(n)
+	}
+	// 步骤3：是否需要颜色转换（left红，right红）
+	if n.Left.IsRed() && n.Right.IsRed() {
+		flipColors(n)
+	}
+
+	n.Num = 1 + RBSize(n.Left) + RBSize(n.Right)
+	return n
 }
