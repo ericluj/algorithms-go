@@ -2,7 +2,6 @@ package search
 
 import (
 	"fmt"
-	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -56,14 +55,10 @@ func TestBST(t *testing.T) {
 
 // 红黑二叉查找树
 func TestRedBlackBST(t *testing.T) {
-	b := NewRedBlackBST()
-	for i := 111; i <= 120; i++ {
-		b.Put(Key("key"+strconv.Itoa(i)), i)
+	input := "SEARCHX"
+	st := NewRedBlackBST()
+	for i, a := range input {
+		st.Put(Key(a), i)
 	}
-	for i := 101; i <= 110; i++ {
-		b.Put(Key("key"+strconv.Itoa(i)), i)
-	}
-	fmt.Println(b.Root.Size())
-	fmt.Println(b.Get("key106"))
-	fmt.Println("--------")
+	assert.Equal(t, 1, st.Get("E"))
 }

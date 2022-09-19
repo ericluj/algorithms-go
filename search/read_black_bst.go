@@ -5,6 +5,10 @@ type RedBlackBST struct {
 	Root *RBNode
 }
 
+func NewRedBlackBST() *RedBlackBST {
+	return &RedBlackBST{}
+}
+
 const (
 	Red   = true
 	Black = false
@@ -132,4 +136,24 @@ func rbPut(n *RBNode, k Key, v Val) *RBNode {
 
 	n.Num = 1 + RBSize(n.Left) + RBSize(n.Right)
 	return n
+}
+
+func (r *RedBlackBST) Get(k Key) Val {
+	return rbGet(r.Root, k)
+}
+
+func rbGet(n *RBNode, k Key) Val {
+	if n == nil {
+		return nil
+	}
+
+	cmp := k.CompareTo(n.Key)
+	if cmp < 0 {
+		return rbGet(n.Left, k)
+	} else if cmp > 0 {
+		return rbGet(n.Right, k)
+	}
+
+	// 相等直接返回
+	return n.Val
 }
