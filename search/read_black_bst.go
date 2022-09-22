@@ -216,27 +216,49 @@ func moveRedLeft(n *RBNode) *RBNode {
 func (r *RedBlackBST) DeleteMin() {
 	// 根结点是2-结点，且它的左右子结点都是2-结点，将三个结点变成一个4-结点
 
+	// 维护隐形不变量
 	if !IsRed(r.Root.Left) && !IsRed(r.Root.Right) {
 		r.Root.Color = Red
 	}
+
 	r.Root = rbDeleteMin(r.Root)
 	if r.Root != nil {
 		r.Root.Color = Black
 	}
 }
 
+// 隐形不变量：n为红或者n.left为红
 func rbDeleteMin(n *RBNode) *RBNode {
-	// 当前结点就是最小，删除它（返回nil）
+	// 删除的结点必须是红链接（这样才不影响平衡）
+
+	// 当前结点最小，删除它
 	if n.Left == nil {
 		return nil
 	}
 
-	// 判断n.Left是否是2-结点
+	// 存在左子结点
+	// n.Left是红色，可以直接删除
+	// n.Left是黑色，但是存在红色的n.Left.Left（n.Left不需要被删除，删除的可能是n.Left.Left）
 	if !IsRed(n.Left) && !IsRed(n.Left.Left) {
-		// 是2-结点，进行变换让它不为2-结点
 		n = moveRedLeft(n)
 	}
 
 	n.Left = rbDeleteMin(n.Left)
+
+	return balance(n)
+}
+
+func balance(n *RBNode) *RBNode {
+	if IsRed(n.Right) && !IsRed(n.Left) {
+		n = rotateLeft(n)
+	}
+	if IsRed(n.Left) && IsRed(n.Left.Left) {
+		n = rotateRight(n)
+	}
+	if IsRed(n.Left) && IsRed(n.Right) {
+		delFlipColors(n)
+	}
+
+	n.Num = 1 + RBSize(n.Left) + RBSize(n.Right)
 	return n
 }
