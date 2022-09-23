@@ -1,5 +1,7 @@
 package search
 
+import "fmt"
+
 // RedBlackBST 红黑二叉查找树
 type RedBlackBST struct {
 	Root *RBNode
@@ -193,6 +195,22 @@ func rbGet(n *RBNode, k Key) Val {
 	return n.Val
 }
 
+func (r *RedBlackBST) Print() {
+	silce := make([]Key, 0)
+	rbPrint(&silce, r.Root)
+	fmt.Println(silce)
+}
+
+func rbPrint(silce *[]Key, node *RBNode) {
+	if node.Left != nil {
+		rbPrint(silce, node.Left)
+	}
+	*silce = append(*silce, node.Key)
+	if node.Right != nil {
+		rbPrint(silce, node.Right)
+	}
+}
+
 // 删除结点颜色转换（中结点颜色变黑，相当于将其送入子结点）
 func delFlipColors(n *RBNode) {
 	n.Color = Black
@@ -200,7 +218,7 @@ func delFlipColors(n *RBNode) {
 	n.Right.Color = Red
 }
 
-// n的左子结点n.Left是2-结点，把它变化为
+// n的左子结点n.Left是2-结点，把它变化为非2-结点
 func moveRedLeft(n *RBNode) *RBNode {
 
 	delFlipColors(n)
@@ -217,6 +235,7 @@ func (r *RedBlackBST) DeleteMin() {
 	// 根结点是2-结点，且它的左右子结点都是2-结点，将三个结点变成一个4-结点
 
 	// 维护隐形不变量
+	// 变为非2-结点
 	if !IsRed(r.Root.Left) && !IsRed(r.Root.Right) {
 		r.Root.Color = Red
 	}
@@ -227,18 +246,20 @@ func (r *RedBlackBST) DeleteMin() {
 	}
 }
 
-// 隐形不变量：n为红或者n.left为红
+// 隐形不变量：n为红或者n.left为红（n不为2-结点）
+// 传入的结点n可能有两种情况
+// 1.n是红链接
+// 2.n是黑链接，n.Left是红链接（这种情况不会走删除和变化逻辑，继续递归n.Left）
+// 综上，有操作的时候n肯定是红链接
 func rbDeleteMin(n *RBNode) *RBNode {
-	// 删除的结点必须是红链接（这样才不影响平衡）
+	// 删除的结点必须不是2-结点（这样才不影响平衡）
 
 	// 当前结点最小，删除它
 	if n.Left == nil {
 		return nil
 	}
 
-	// 存在左子结点
-	// n.Left是红色，可以直接删除
-	// n.Left是黑色，但是存在红色的n.Left.Left（n.Left不需要被删除，删除的可能是n.Left.Left）
+	// n.Left是否为2-结点
 	if !IsRed(n.Left) && !IsRed(n.Left.Left) {
 		n = moveRedLeft(n)
 	}

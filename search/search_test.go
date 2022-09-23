@@ -60,5 +60,8 @@ func TestRedBlackBST(t *testing.T) {
 	for i, a := range input {
 		st.Put(Key(a), i)
 	}
+	st.Print()
 	assert.Equal(t, 1, st.Get("E"))
+	st.DeleteMin()
+	st.Print()
 }
