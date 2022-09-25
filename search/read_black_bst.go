@@ -103,12 +103,13 @@ func rotateRight(n *RBNode) *RBNode {
 	return t
 }
 
-// 颜色转换（使中结点颜色变红，相当于将它送入了父结点）
-// 两个子结点颜色由红变黑，父结点颜色由黑变红
+// 颜色转换
+// 1.两个子结点颜色由红变黑，父结点颜色由黑变红（使中结点颜色变红，相当于将它送入了父结点）
+// 2.删除结点颜色转换（中结点颜色变黑，相当于将其送入子结点）
 func flipColors(n *RBNode) {
-	n.Color = Red
-	n.Left.Color = Black
-	n.Right.Color = Black
+	n.Color = !n.Color
+	n.Left.Color = !n.Left.Color
+	n.Right.Color = !n.Right.Color
 }
 
 func (r *RedBlackBST) Put(k Key, v Val) {
@@ -211,17 +212,10 @@ func rbPrint(silce *[]Key, node *RBNode) {
 	}
 }
 
-// 删除结点颜色转换（中结点颜色变黑，相当于将其送入子结点）
-func delFlipColors(n *RBNode) {
-	n.Color = Black
-	n.Left.Color = Red
-	n.Right.Color = Red
-}
-
 // n的左子结点n.Left是2-结点，把它变化为非2-结点
 func moveRedLeft(n *RBNode) *RBNode {
 
-	delFlipColors(n)
+	flipColors(n)
 
 	if IsRed(n.Right.Left) {
 		n.Right = rotateRight(n.Right)
@@ -277,7 +271,7 @@ func balance(n *RBNode) *RBNode {
 		n = rotateRight(n)
 	}
 	if IsRed(n.Left) && IsRed(n.Right) {
-		delFlipColors(n)
+		flipColors(n)
 	}
 
 	n.Num = 1 + RBSize(n.Left) + RBSize(n.Right)
