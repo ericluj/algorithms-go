@@ -67,3 +67,15 @@ func TestRedBlackBST(t *testing.T) {
 	st.DeleteMax()
 	st.Print()
 }
+
+// 散列表
+func TestHashST(t *testing.T) {
+	input := "SEARCHX"
+	st := NewSeparateChainingHashST(997)
+	for i, a := range input {
+		st.Put(Key(a), i)
+	}
+	for i, a := range input {
+		assert.Equal(t, i, st.Get(Key(a)))
+	}
+}

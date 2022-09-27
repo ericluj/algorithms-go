@@ -6,7 +6,6 @@ import (
 )
 
 // 二分查找（基于有序数组）
-
 type BinanryST struct {
 	keys []Key
 	vals []Val

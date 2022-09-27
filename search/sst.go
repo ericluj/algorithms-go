@@ -6,19 +6,10 @@ import (
 )
 
 // 顺序查找（基于无序链表）
-
 type SNode struct {
 	k    Key
 	v    Val
 	next *SNode
-}
-
-func NewSNode(k Key, v Val, next *SNode) *SNode {
-	return &SNode{
-		k:    k,
-		v:    v,
-		next: next,
-	}
 }
 
 type SST struct {
@@ -48,7 +39,11 @@ func (s *SST) Put(k Key, v Val) {
 			return
 		}
 	}
-	s.first = NewSNode(k, v, s.first)
+	s.first = &SNode{
+		k:    k,
+		v:    v,
+		next: s.first,
+	}
 }
 
 func (s *SST) String() string {
