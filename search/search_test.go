@@ -64,4 +64,6 @@ func TestRedBlackBST(t *testing.T) {
 	assert.Equal(t, 1, st.Get("E"))
 	st.DeleteMin()
 	st.Print()
+	st.DeleteMax()
+	st.Print()
 }

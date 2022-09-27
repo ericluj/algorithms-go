@@ -212,20 +212,26 @@ func rbPrint(silce *[]Key, node *RBNode) {
 	}
 }
 
-// n的左子结点n.Left是2-结点，把它变化为非2-结点
-func moveRedLeft(n *RBNode) *RBNode {
-
-	flipColors(n)
-
-	if IsRed(n.Right.Left) {
-		n.Right = rotateRight(n.Right)
+func balance(n *RBNode) *RBNode {
+	if IsRed(n.Right) && !IsRed(n.Left) {
 		n = rotateLeft(n)
 	}
+	if IsRed(n.Left) && IsRed(n.Left.Left) {
+		n = rotateRight(n)
+	}
+	if IsRed(n.Left) && IsRed(n.Right) {
+		flipColors(n)
+	}
 
+	n.Num = 1 + RBSize(n.Left) + RBSize(n.Right)
 	return n
 }
 
 func (r *RedBlackBST) DeleteMin() {
+	if r.Root == nil {
+		return
+	}
+
 	// 根结点是2-结点，且它的左右子结点都是2-结点，将三个结点变成一个4-结点
 
 	// 维护隐形不变量
@@ -263,17 +269,60 @@ func rbDeleteMin(n *RBNode) *RBNode {
 	return balance(n)
 }
 
-func balance(n *RBNode) *RBNode {
-	if IsRed(n.Right) && !IsRed(n.Left) {
+// n的左子结点n.Left是2-结点，把它变化为非2-结点
+func moveRedLeft(n *RBNode) *RBNode {
+	flipColors(n)
+
+	if IsRed(n.Right.Left) {
+		n.Right = rotateRight(n.Right)
 		n = rotateLeft(n)
-	}
-	if IsRed(n.Left) && IsRed(n.Left.Left) {
-		n = rotateRight(n)
-	}
-	if IsRed(n.Left) && IsRed(n.Right) {
 		flipColors(n)
 	}
 
-	n.Num = 1 + RBSize(n.Left) + RBSize(n.Right)
+	return n
+}
+
+func (r *RedBlackBST) DeleteMax() {
+	if r.Root == nil {
+		return
+	}
+
+	if !IsRed(r.Root.Left) && !IsRed(r.Root.Right) {
+		r.Root.Color = Red
+	}
+
+	r.Root = rbDeleteMax(r.Root)
+
+	if r.Root != nil {
+		r.Root.Color = Black
+	}
+}
+
+func rbDeleteMax(n *RBNode) *RBNode {
+	if IsRed(n.Left) {
+		n = rotateRight(n)
+	}
+
+	if n.Right == nil {
+		return nil
+	}
+
+	if !IsRed(n.Right) && !IsRed(n.Right.Left) {
+		n = moveRedRight(n)
+	}
+
+	n.Right = rbDeleteMax(n.Right)
+
+	return balance(n)
+}
+
+func moveRedRight(n *RBNode) *RBNode {
+	flipColors(n)
+
+	if IsRed(n.Left.Left) {
+		n = rotateRight(n)
+		flipColors(n)
+	}
+
 	return n
 }
