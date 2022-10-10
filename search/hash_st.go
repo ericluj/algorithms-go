@@ -34,3 +34,15 @@ func (s *SeparateChainingHashST) Get(k Key) Val {
 func (s *SeparateChainingHashST) Put(k Key, v Val) {
 	s.st[s.hash(k)].Put(k, v)
 }
+
+func (s *SeparateChainingHashST) Delete(k Key) {
+	s.st[s.hash(k)].Delete(k)
+}
+
+func (s *SeparateChainingHashST) String() string {
+	str := ""
+	for _, v := range s.st {
+		str += v.String()
+	}
+	return str
+}

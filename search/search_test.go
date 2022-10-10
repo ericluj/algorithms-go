@@ -15,7 +15,10 @@ func TestSST(t *testing.T) {
 		st.Put(Key(a), i)
 		fmt.Println(st)
 	}
-
+	st.Delete(Key("L"))
+	fmt.Println(st)
+	st.Delete(Key("A"))
+	fmt.Println(st)
 	assert.Equal(t, 12, st.Get("E"))
 }
 
@@ -75,7 +78,10 @@ func TestHashST(t *testing.T) {
 	for i, a := range input {
 		st.Put(Key(a), i)
 	}
+	fmt.Println(st)
 	for i, a := range input {
 		assert.Equal(t, i, st.Get(Key(a)))
 	}
+	st.Delete(Key("R"))
+	fmt.Println(st)
 }

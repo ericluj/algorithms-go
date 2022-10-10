@@ -46,6 +46,23 @@ func (s *SST) Put(k Key, v Val) {
 	}
 }
 
+func (s *SST) Delete(k Key) {
+	// 如果第一个元素就是要删除的元素
+	if k.CompareTo(s.first.k) == 0 {
+		s.first = s.first.next
+		return
+	}
+
+	pre := s.first
+	for pre.next != nil {
+		if k.CompareTo(pre.next.k) == 0 {
+			pre.next = pre.next.next
+			return
+		}
+		pre = pre.next
+	}
+}
+
 func (s *SST) String() string {
 	arr := make([]string, 0)
 	for n := s.first; n != nil; n = n.next {
