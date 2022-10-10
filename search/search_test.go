@@ -71,8 +71,8 @@ func TestRedBlackBST(t *testing.T) {
 	st.Print()
 }
 
-// 散列表
-func TestHashST(t *testing.T) {
+// 基于拉链法的散列表
+func TestChainHashST(t *testing.T) {
 	input := "SEARCHX"
 	st := NewSeparateChainingHashST(997)
 	for i, a := range input {
@@ -84,4 +84,9 @@ func TestHashST(t *testing.T) {
 	}
 	st.Delete(Key("R"))
 	fmt.Println(st)
+}
+
+// 基于线性探测法的散列表
+func TestLineHashST(t *testing.T) {
+
 }
