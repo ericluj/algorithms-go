@@ -88,5 +88,15 @@ func TestChainHashST(t *testing.T) {
 
 // 基于线性探测法的散列表
 func TestLineHashST(t *testing.T) {
-
+	input := "SEARCHX"
+	st := NewLinearProbingHashST(10)
+	for i, a := range input {
+		st.Put(Key(a), i)
+	}
+	fmt.Println(st)
+	for i, a := range input {
+		assert.Equal(t, i, st.Get(Key(a)))
+	}
+	st.Delete(Key("E"))
+	fmt.Println(st)
 }
