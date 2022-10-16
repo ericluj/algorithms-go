@@ -2,6 +2,7 @@ package graph
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -69,4 +70,12 @@ func (g *Graph) AddEdge(v, w int) {
 
 func (g *Graph) Adj(v int) *Bag {
 	return g.adj[v]
+}
+
+func (g *Graph) String() string {
+	var res string
+	for key, val := range g.adj {
+		res += fmt.Sprintf("%d:%v\n", key, val)
+	}
+	return res
 }
