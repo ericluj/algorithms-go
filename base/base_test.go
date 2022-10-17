@@ -27,6 +27,7 @@ func TestUF(t *testing.T) {
 
 	// 初始化n个分量
 	uf := NewUF(n)
+	ufU := NewUF(n)
 	for scanner.Scan() {
 		// 读取整数对
 		arr := strings.Split(scanner.Text(), " ")
@@ -39,9 +40,13 @@ func TestUF(t *testing.T) {
 		}
 
 		// 归并分量
-		uf.Union(p, q)
+		uf.Union(p, q)   // quick-find
+		ufU.UnionU(p, q) // quick-union
 
 		// 打印连接
 		fmt.Printf("%d %d\n", p, q)
 	}
+
+	fmt.Println(uf.id)
+	fmt.Println(ufU.id)
 }
