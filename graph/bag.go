@@ -13,3 +13,7 @@ func NewBag() *Bag {
 func (b *Bag) Add(v int) {
 	b.data = append([]int{v}, b.data...)
 }
+
+func (b *Bag) Len() int {
+	return len(b.data)
+}
