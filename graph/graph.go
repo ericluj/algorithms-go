@@ -56,12 +56,12 @@ func NewGraphByFile(fileName string) *Graph {
 	return g
 }
 
-// 边数
+// 顶点数
 func (g *Graph) GetV() int {
 	return g.V
 }
 
-// 顶点数
+// 边数
 func (g *Graph) GetE() int {
 	return g.E
 }
