@@ -38,8 +38,8 @@ func (d *DepthFirstPaths) pathTo(v int) []int {
 	}
 
 	for x := v; x != d.s; x = d.edgeTo[x] {
-		path = append(path, x)
+		path = append([]int{x}, path...)
 	}
-	path = append(path, d.s)
+	path = append([]int{d.s}, path...)
 	return path
 }
