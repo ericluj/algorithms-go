@@ -17,7 +17,7 @@ func (d *DepthFirstSearch) dfs(g *Graph, v int) {
 	d.marked[v] = true
 	d.count++
 
-	for _, w := range g.Adj(v).data {
+	for _, w := range g.Adj(v).Data() {
 		if !d.isMarked(w) {
 			d.dfs(g, w)
 		}

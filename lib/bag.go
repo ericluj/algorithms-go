@@ -1,4 +1,4 @@
-package graph
+package lib
 
 type Bag struct {
 	data []int
@@ -16,4 +16,8 @@ func (b *Bag) Add(v int) {
 
 func (b *Bag) Len() int {
 	return len(b.data)
+}
+
+func (b *Bag) Data() []int {
+	return b.data
 }

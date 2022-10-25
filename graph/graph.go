@@ -6,12 +6,14 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/ericluj/algorithms-go/lib"
 )
 
 type Graph struct {
-	V   int    // 顶点数目
-	E   int    // 边的数目
-	adj []*Bag // 邻接表
+	V   int        // 顶点数目
+	E   int        // 边的数目
+	adj []*lib.Bag // 邻接表
 }
 
 // 创建一个含有v个顶点但不含有边的图
@@ -19,10 +21,10 @@ func NewGraph(v int) *Graph {
 	g := &Graph{
 		V:   v,
 		E:   0,
-		adj: make([]*Bag, v),
+		adj: make([]*lib.Bag, v),
 	}
 	for i := 0; i < v; i++ {
-		g.adj[i] = NewBag()
+		g.adj[i] = lib.NewBag()
 	}
 	return g
 }
@@ -74,7 +76,7 @@ func (g *Graph) AddEdge(v, w int) {
 }
 
 // 与v相邻的所有顶点
-func (g *Graph) Adj(v int) *Bag {
+func (g *Graph) Adj(v int) *lib.Bag {
 	return g.adj[v]
 }
 
