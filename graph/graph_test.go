@@ -24,3 +24,12 @@ func TestDepthFirstPaths(t *testing.T) {
 		fmt.Printf("%d to %d: %v\n", s, v, d.pathTo(v))
 	}
 }
+
+func TestBreadthFirstPaths(t *testing.T) {
+	g := NewGraphByFile("./tinyCG.txt")
+	s := 0
+	d := NewBreadthFirstPaths(g, s)
+	for v := 0; v < g.GetV(); v++ {
+		fmt.Printf("%d to %d: %v\n", s, v, d.pathTo(v))
+	}
+}

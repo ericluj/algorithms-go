@@ -2,6 +2,7 @@ package lib
 
 import "fmt"
 
+// 队列 FIFO 先进先出
 type Queue struct {
 	data []int
 }
@@ -18,7 +19,7 @@ func (q *Queue) Enqueue(x int) {
 }
 
 // 移除队列头
-func (q *Queue) Dequeue(x int) int {
+func (q *Queue) Dequeue() int {
 	if q.IsEmpty() {
 		return 0
 	}
