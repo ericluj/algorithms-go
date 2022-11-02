@@ -1,5 +1,6 @@
 package graph
 
+// 深度优先搜索
 type DepthFirstSearch struct {
 	marked []bool
 	count  int
@@ -7,7 +8,7 @@ type DepthFirstSearch struct {
 
 func NewDepthFirstSearch(g *Graph, s int) *DepthFirstSearch {
 	d := &DepthFirstSearch{
-		marked: make([]bool, g.GetV()),
+		marked: make([]bool, g.V),
 	}
 	d.dfs(g, s)
 	return d

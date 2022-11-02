@@ -10,6 +10,7 @@ import (
 	"github.com/ericluj/algorithms-go/lib"
 )
 
+// 图
 type Graph struct {
 	V   int        // 顶点数目
 	E   int        // 边的数目
@@ -58,16 +59,6 @@ func NewGraphByFile(fileName string) *Graph {
 	return g
 }
 
-// 顶点数
-func (g *Graph) GetV() int {
-	return g.V
-}
-
-// 边数
-func (g *Graph) GetE() int {
-	return g.E
-}
-
 // 添加边
 func (g *Graph) AddEdge(v, w int) {
 	g.adj[v].Add(w)
@@ -97,7 +88,7 @@ func (g *Graph) Degree(v int) int {
 // 计算所有顶点的最大度数
 func (g *Graph) MaxDegree() int {
 	max := 0
-	for v := 0; v < g.GetV(); v++ {
+	for v := 0; v < g.V; v++ {
 		if g.Degree(v) > max {
 			max = g.Degree(v)
 		}
@@ -107,5 +98,5 @@ func (g *Graph) MaxDegree() int {
 
 // 计算所有顶点的平均度数
 func (g *Graph) AvgDegree() float64 {
-	return 2 * float64(g.GetE()) / float64(g.GetV())
+	return 2 * float64(g.E) / float64(g.V)
 }
