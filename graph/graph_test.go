@@ -57,3 +57,17 @@ func TestCC(t *testing.T) {
 		fmt.Println(components[i])
 	}
 }
+
+// 检测环
+func TestCycle(t *testing.T) {
+	g := NewGraphByFile("./tinyG.txt")
+	c := NewCycle(g)
+	fmt.Println(c.hasCycle)
+}
+
+// 双色问题
+func TestTwoColor(t *testing.T) {
+	g := NewGraphByFile("./tinyG.txt")
+	c := NewTwoColor(g)
+	fmt.Println(c.isTwoColor)
+}
