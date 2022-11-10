@@ -71,3 +71,10 @@ func TestTwoColor(t *testing.T) {
 	c := NewTwoColor(g)
 	fmt.Println(c.isTwoColor)
 }
+
+// 符号图
+func TestSymbolGraph(t *testing.T) {
+	sg := NewSymbolGraphByFile("./routes.txt")
+	fmt.Println(sg)
+	fmt.Println(sg.g)
+}
