@@ -78,3 +78,9 @@ func TestSymbolGraph(t *testing.T) {
 	fmt.Println(sg)
 	fmt.Println(sg.g)
 }
+
+// 有向图
+func TestDigraph(t *testing.T) {
+	g := NewDigraphByFile("./tinyDG.txt")
+	fmt.Println(g)
+}
