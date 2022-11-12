@@ -19,14 +19,10 @@ func (d *DepthFirstSearch) dfs(g *Graph, v int) {
 	d.count++
 
 	for _, w := range g.Adj(v).Data() {
-		if !d.isMarked(w) {
+		if !d.marked[w] {
 			d.dfs(g, w)
 		}
 	}
-}
-
-func (d *DepthFirstSearch) isMarked(w int) bool {
-	return d.marked[w]
 }
 
 func (d *DepthFirstSearch) Count() int {

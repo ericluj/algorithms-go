@@ -84,3 +84,14 @@ func TestDigraph(t *testing.T) {
 	g := NewDigraphByFile("./tinyDG.txt")
 	fmt.Println(g)
 }
+
+// 有向图的可达性
+func TestDirectedDFS(t *testing.T) {
+	g := NewDigraphByFile("./tinyDG.txt")
+	d := NewDirectedDFS(g, 1)
+	fmt.Println(d)
+	d2 := NewDirectedDFS(g, 2)
+	fmt.Println(d2)
+	d3 := NewDirectedDFSSources(g, []int{1, 2, 6})
+	fmt.Println(d3)
+}
