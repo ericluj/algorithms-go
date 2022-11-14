@@ -27,6 +27,7 @@ func NewDirectedCycle(g *Digraph) *DirectedCycle {
 // 找到一条边v->w且w已经存在于栈中，说明找到了一个环
 // 因为栈表示一条w->v的有向路径（v是最后一个放进栈中的顶点，已经在栈中的任何一个顶点，一定都会指向v）
 // 而v->w正好补全了这个环
+// 简单一点想：dfs会沿着有向路径一直递归，所以肯定是从最起点延伸出一个指向路径本身才会有环；而不会是从另一个起点指向之前的递归路径
 func (dc *DirectedCycle) dfs(g *Digraph, v int) {
 	dc.onStack[v] = true
 	dc.marked[v] = true
