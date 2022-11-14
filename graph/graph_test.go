@@ -95,3 +95,11 @@ func TestDirectedDFS(t *testing.T) {
 	d3 := NewDirectedDFSSources(g, []int{1, 2, 6})
 	fmt.Println(d3)
 }
+
+// 寻找有向环
+func TestDirectedCycle(t *testing.T) {
+	g := NewDigraphByFile("./tinyDG.txt")
+	d := NewDirectedCycle(g)
+	fmt.Println(d.hasCycle())
+	fmt.Println(d.Cycle())
+}
