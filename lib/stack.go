@@ -27,13 +27,14 @@ func (s *Stack) Pop() int {
 	return h
 }
 
-func (q *Stack) IsEmpty() bool {
-	if len(q.data) == 0 {
-		return true
-	}
-	return false
+func (s *Stack) IsEmpty() bool {
+	return len(s.data) == 0
 }
 
 func (s *Stack) String() string {
 	return fmt.Sprintf("%v", s.data)
+}
+
+func (s *Stack) Data() []int {
+	return s.data
 }
