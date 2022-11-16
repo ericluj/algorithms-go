@@ -56,6 +56,8 @@ func TestCC(t *testing.T) {
 	for i := 0; i < cc.count; i++ {
 		fmt.Println(components[i])
 	}
+	fmt.Println(cc.connected(6, 0))
+	fmt.Println(cc.connected(6, 8))
 }
 
 // 检测环
@@ -121,4 +123,24 @@ func TestTopological(t *testing.T) {
 	for _, v := range topo.order.Data() {
 		fmt.Println(sg.Name(v))
 	}
+}
+
+// 计算强连通分量的Kosaraju算法
+func TestKosarajuSCC(t *testing.T) {
+	g := NewDigraphByFile("./data/tinyDG.txt")
+	cc := NewKosarajuSCC(g)
+	fmt.Printf("%d components\n", cc.count)
+
+	components := make([]*lib.Bag, cc.count)
+	for i := 0; i < cc.count; i++ {
+		components[i] = lib.NewBag()
+	}
+	for v := 0; v < g.V; v++ {
+		components[cc.id[v]].Add(v)
+	}
+	for i := 0; i < cc.count; i++ {
+		fmt.Println(components[i])
+	}
+	fmt.Println(cc.stronglyConnected(5, 2))
+	fmt.Println(cc.stronglyConnected(5, 11))
 }
