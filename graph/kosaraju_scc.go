@@ -14,6 +14,7 @@ func NewKosarajuSCC(g *Digraph) *KosarajuSCC {
 	}
 	// 反向图的逆后序排列
 	order := NewDepthFirstOrder(g.Reverse())
+	// 按照上一步的顶点顺序进行dfs
 	for _, s := range order.reversePost.Data() {
 		if !scc.marked[s] {
 			scc.dfs(g, s)

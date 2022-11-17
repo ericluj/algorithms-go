@@ -7,7 +7,7 @@ type DepthFirstOrder struct {
 	marked      []bool
 	pre         *lib.Queue // 所有顶点的前序排列（dfs的调用顺序）
 	post        *lib.Queue // 所有顶点的后序排列（顶点遍历完成的顺序）
-	reversePost *lib.Stack // 所有顶点的逆后序排列
+	reversePost *lib.Stack // 所有顶点的逆后序排列（顶点遍历完成的顺序的逆序：最后完成的顶点最先出栈）
 }
 
 func NewDepthFirstOrder(g *Digraph) *DepthFirstOrder {

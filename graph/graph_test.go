@@ -144,3 +144,11 @@ func TestKosarajuSCC(t *testing.T) {
 	fmt.Println(cc.stronglyConnected(5, 2))
 	fmt.Println(cc.stronglyConnected(5, 11))
 }
+
+// 有向图的顶点对可达性
+func TestTransitiveClosure(t *testing.T) {
+	g := NewDigraphByFile("./data/tinyDG.txt")
+	tc := NewTransitiveClosure(g)
+	fmt.Println(tc.reachable(1, 2))
+	fmt.Println(tc.reachable(2, 1))
+}
