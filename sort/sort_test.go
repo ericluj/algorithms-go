@@ -18,6 +18,15 @@ func IsSorted(t *testing.T, nums []int) {
 	}
 }
 
+func MakeNums(n int) []int {
+	res := make([]int, n)
+	for i := 0; i < n; i++ {
+		res[i] = n
+		n--
+	}
+	return res
+}
+
 // 选择排序
 func TestSelection(t *testing.T) {
 	Selection(data)
@@ -28,6 +37,26 @@ func TestSelection(t *testing.T) {
 func TestInsertion(t *testing.T) {
 	Insertion(data)
 	IsSorted(t, data)
+}
+
+// 插入排序优化版
+func TestInsertionPro(t *testing.T) {
+	InsertionPro(data)
+	IsSorted(t, data)
+}
+
+func BenchmarkInsertion(b *testing.B) {
+	data := MakeNums(10000)
+	for n := 0; n < b.N; n++ {
+		Insertion(data)
+	}
+}
+
+func BenchmarkInsertionPro(b *testing.B) {
+	data := MakeNums(10000)
+	for n := 0; n < b.N; n++ {
+		InsertionPro(data)
+	}
 }
 
 func TestShell(t *testing.T) {

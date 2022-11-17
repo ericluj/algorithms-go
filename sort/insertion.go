@@ -17,3 +17,16 @@ func Insertion(nums []int) {
 		}
 	}
 }
+
+// 较大元素右移而不是交换
+func InsertionPro(nums []int) {
+	length := len(nums)
+	for i := 1; i < length; i++ { // 第1个元素是有序的
+		tmp := nums[i]
+		n := i
+		for ; n > 0 && nums[n-1] > tmp; n-- {
+			nums[n] = nums[n-1]
+		}
+		nums[n] = tmp
+	}
+}
