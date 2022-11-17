@@ -18,15 +18,6 @@ func IsSorted(t *testing.T, nums []int) {
 	}
 }
 
-func MakeNums(n int) []int {
-	res := make([]int, n)
-	for i := 0; i < n; i++ {
-		res[i] = n
-		n--
-	}
-	return res
-}
-
 // 选择排序
 func TestSelection(t *testing.T) {
 	Selection(data)
@@ -46,14 +37,12 @@ func TestInsertionPro(t *testing.T) {
 }
 
 func BenchmarkInsertion(b *testing.B) {
-	data := MakeNums(10000)
 	for n := 0; n < b.N; n++ {
 		Insertion(data)
 	}
 }
 
 func BenchmarkInsertionPro(b *testing.B) {
-	data := MakeNums(10000)
 	for n := 0; n < b.N; n++ {
 		InsertionPro(data)
 	}
