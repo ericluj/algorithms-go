@@ -7,7 +7,7 @@ import (
 
 var data = []int{5, 7, 3, 2, 0, 1, 6, 4, 9, 8}
 
-// IsSorted 判断是否为有序数组
+// 判断是否为有序数组
 func IsSorted(t *testing.T, nums []int) {
 	defer fmt.Println(nums)
 	for i := 1; i < len(nums); i++ {
@@ -18,6 +18,7 @@ func IsSorted(t *testing.T, nums []int) {
 	}
 }
 
+// 选择排序
 func TestSelection(t *testing.T) {
 	Selection(data)
 	IsSorted(t, data)
