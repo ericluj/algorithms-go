@@ -24,6 +24,7 @@ func TestSelection(t *testing.T) {
 	IsSorted(t, data)
 }
 
+// 插入排序
 func TestInsertion(t *testing.T) {
 	Insertion(data)
 	IsSorted(t, data)
