@@ -12,7 +12,7 @@ func Insertion(nums []int) {
 
 	length := len(nums)
 	for i := 1; i < length; i++ { // 第1个元素是有序的
-		for n := i; n > 0 && nums[n] < nums[n-1]; n-- {
+		for n := i; n >= 1 && nums[n] < nums[n-1]; n-- {
 			lib.Exch(nums, n, n-1)
 		}
 	}
