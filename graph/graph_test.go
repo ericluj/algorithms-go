@@ -3,8 +3,6 @@ package graph
 import (
 	"fmt"
 	"testing"
-
-	"github.com/ericluj/algorithms-go/lib"
 )
 
 // 图
@@ -46,9 +44,9 @@ func TestCC(t *testing.T) {
 	cc := NewCC(g)
 	fmt.Printf("%d components\n", cc.count)
 
-	components := make([]*lib.Bag, cc.count)
+	components := make([]*Bag[int], cc.count)
 	for i := 0; i < cc.count; i++ {
-		components[i] = lib.NewBag()
+		components[i] = NewBag[int]()
 	}
 	for v := 0; v < g.V; v++ {
 		components[cc.id[v]].Add(v)
@@ -131,9 +129,9 @@ func TestKosarajuSCC(t *testing.T) {
 	cc := NewKosarajuSCC(g)
 	fmt.Printf("%d components\n", cc.count)
 
-	components := make([]*lib.Bag, cc.count)
+	components := make([]*Bag[int], cc.count)
 	for i := 0; i < cc.count; i++ {
-		components[i] = lib.NewBag()
+		components[i] = NewBag[int]()
 	}
 	for v := 0; v < g.V; v++ {
 		components[cc.id[v]].Add(v)
@@ -151,4 +149,10 @@ func TestTransitiveClosure(t *testing.T) {
 	tc := NewTransitiveClosure(g)
 	fmt.Println(tc.reachable(1, 2))
 	fmt.Println(tc.reachable(2, 1))
+}
+
+// 加权无向图
+func TestEdgeWeightedGraph(t *testing.T) {
+	g := NewEdgeWeightedGraphByFile("./data/tinyEWG.txt")
+	fmt.Println(g)
 }

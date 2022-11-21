@@ -6,15 +6,13 @@ import (
 	"os"
 	"strconv"
 	"strings"
-
-	"github.com/ericluj/algorithms-go/lib"
 )
 
 // 有向图
 type Digraph struct {
-	V   int        // 顶点数目
-	E   int        // 边的数目
-	adj []*lib.Bag // 邻接表
+	V   int         // 顶点数目
+	E   int         // 边的数目
+	adj []*Bag[int] // 邻接表
 }
 
 // 创建一个含有v个顶点但不含有边的有向图
@@ -22,10 +20,10 @@ func NewDigraph(v int) *Digraph {
 	g := &Digraph{
 		V:   v,
 		E:   0,
-		adj: make([]*lib.Bag, v),
+		adj: make([]*Bag[int], v),
 	}
 	for i := 0; i < v; i++ {
-		g.adj[i] = lib.NewBag()
+		g.adj[i] = NewBag[int]()
 	}
 	return g
 }
@@ -66,7 +64,7 @@ func (g *Digraph) AddEdge(v, w int) {
 }
 
 // 由v指出的边所连接的所有顶点
-func (g *Digraph) Adj(v int) *lib.Bag {
+func (g *Digraph) Adj(v int) *Bag[int] {
 	return g.adj[v]
 }
 
