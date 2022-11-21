@@ -156,3 +156,10 @@ func TestEdgeWeightedGraph(t *testing.T) {
 	g := NewEdgeWeightedGraphByFile("./data/tinyEWG.txt")
 	fmt.Println(g)
 }
+
+// 最小生成树的Prim算法的延时实现
+func TestLazyPrimMST(t *testing.T) {
+	g := NewEdgeWeightedGraphByFile("./data/tinyEWG.txt")
+	l := NewLazyPrimMST(g)
+	fmt.Println(l.mst)
+}

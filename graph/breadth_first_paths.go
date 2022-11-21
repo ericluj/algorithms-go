@@ -20,7 +20,7 @@ func NewBreadthFirstPaths(g *Graph, s int) *BreadthFirstPaths {
 }
 
 func (b *BreadthFirstPaths) bfs(g *Graph, s int) {
-	queue := lib.NewQueue()
+	queue := NewQueue[int]()
 	b.marked[s] = true // 标记起点
 	queue.Enqueue(s)   // 将它加入队列
 	for !queue.IsEmpty() {
