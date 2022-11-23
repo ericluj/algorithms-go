@@ -163,3 +163,10 @@ func TestLazyPrimMST(t *testing.T) {
 	l := NewLazyPrimMST(g)
 	fmt.Println(l.mst)
 }
+
+// 最小生成树的Prim算法的即时实现
+func TestPrimMST(t *testing.T) {
+	g := NewEdgeWeightedGraphByFile("./data/tinyEWG.txt")
+	l := NewPrimMST(g)
+	fmt.Println(l.edgeTo[1:])
+}
