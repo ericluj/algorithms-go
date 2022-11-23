@@ -170,3 +170,10 @@ func TestPrimMST(t *testing.T) {
 	l := NewPrimMST(g)
 	fmt.Println(l.edgeTo[1:])
 }
+
+// 最小生成树的Kruskal算法
+func TestKruskalMST(t *testing.T) {
+	g := NewEdgeWeightedGraphByFile("./data/tinyEWG.txt")
+	k := NewKruskalMST(g)
+	fmt.Println(k.mst)
+}

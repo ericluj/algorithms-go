@@ -79,3 +79,16 @@ func (g *EdgeWeightedGraph) String() string {
 	}
 	return res
 }
+
+func (g *EdgeWeightedGraph) Edges() []*Edge {
+	res := make([]*Edge, 0)
+	for v := 0; v < g.V; v++ {
+		for _, e := range g.Adj(v).Data() {
+			// 7-1 在 1-7已经被加入过了
+			if e.other(v) > v {
+				res = append(res, e)
+			}
+		}
+	}
+	return res
+}

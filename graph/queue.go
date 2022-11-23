@@ -33,6 +33,10 @@ func (q *Queue[T]) IsEmpty() bool {
 	return len(q.data) == 0
 }
 
+func (q *Queue[T]) Size() int {
+	return len(q.data)
+}
+
 func (q *Queue[T]) String() string {
 	return fmt.Sprintf("%v", q.data)
 }
