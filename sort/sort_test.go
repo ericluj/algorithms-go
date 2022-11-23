@@ -54,11 +54,13 @@ func TestShell(t *testing.T) {
 	IsSorted(t, data)
 }
 
+// 自顶向下的归并排序
 func TestMerge(t *testing.T) {
 	Merge(data)
 	IsSorted(t, data)
 }
 
+// 自底向上的归并排序
 func TestMergeBu(t *testing.T) {
 	MergeBu(data)
 	IsSorted(t, data)
