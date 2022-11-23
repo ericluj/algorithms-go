@@ -4,16 +4,16 @@ import (
 	"github.com/ericluj/algorithms-go/lib"
 )
 
-// merge 原地归并的抽象方法
+// 原地归并的抽象方法
 func merge(nums []int, lo, mid, hi int) {
-	//将数组分为两个部分[lo,mid]和[mid+1,hi]，这里两个部分都是各自有序
-	//依次从两各部分中拿出元素进行比较，较小的元素放入
-	//若某一部分所有元素都取完，直接把另一部分剩下元素依次放入即可
+	// 将数组分为两个部分[lo,mid]和[mid+1,hi]，这里两个部分都是各自有序
+	// 依次从两各部分中拿出元素进行比较，较小的元素放入
+	// 若某一部分所有元素都取完，直接把另一部分剩下元素依次放入即可
 
 	leftIndex := lo
 	rightIndex := mid + 1
 
-	//先复制一份数据来读取，改动原来的数组
+	// 先复制一份数据来读取，改动原来的数组
 	c := make([]int, len(nums))
 	for i := 0; i < len(nums); i++ {
 		c[i] = nums[i]
@@ -45,7 +45,7 @@ func mergeSort(nums []int, lo, hi int) {
 	if lo >= hi { // 此时数组只有一个元素，是有序的
 		return
 	}
-	mid := lo + (hi-lo)/2      //这种取mid的方式，可以避免溢出
+	mid := lo + (hi-lo)/2      // 这种取mid的方式，可以避免溢出
 	mergeSort(nums, lo, mid)   // 将左边边排序
 	mergeSort(nums, mid+1, hi) // 将右半边排序
 	merge(nums, lo, mid, hi)   // 归并结果
@@ -53,7 +53,7 @@ func mergeSort(nums []int, lo, hi int) {
 
 // 自底向上的归并排序
 func MergeBu(nums []int) {
-	//其实是递归的反思路，不过代码量更少
+	// 其实是递归的反思路，不过代码量更少
 
 	l := len(nums)
 	for sz := 1; sz < l; sz += sz { // sz子数组大小
