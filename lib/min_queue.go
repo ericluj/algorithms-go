@@ -1,4 +1,4 @@
-package graph
+package lib
 
 type MinQueue struct {
 	data []*Edge

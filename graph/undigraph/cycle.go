@@ -1,10 +1,10 @@
-package graph
+package undigraph
 
 // 检测环
 // 是无环图吗？
 type Cycle struct {
 	marked   []bool
-	hasCycle bool
+	HasCycle bool
 }
 
 func NewCycle(g *Graph) *Cycle {
@@ -27,7 +27,7 @@ func (c *Cycle) dfs(g *Graph, v, u int) {
 		if !c.marked[w] {
 			c.dfs(g, w, v)
 		} else if w != u {
-			c.hasCycle = true
+			c.HasCycle = true
 		}
 	}
 }

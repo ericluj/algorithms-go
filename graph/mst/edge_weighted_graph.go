@@ -1,4 +1,4 @@
-package graph
+package mst
 
 import (
 	"bufio"
@@ -6,23 +6,25 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/ericluj/algorithms-go/lib"
 )
 
 // 加权无向图
 type EdgeWeightedGraph struct {
-	V   int           // 顶点数目
-	E   int           // 边的数目
-	adj []*Bag[*Edge] // 邻接表
+	V   int                   // 顶点数目
+	E   int                   // 边的数目
+	adj []*lib.Bag[*lib.Edge] // 邻接表
 }
 
 func NewEdgeWeightedGraph(v int) *EdgeWeightedGraph {
 	g := &EdgeWeightedGraph{
 		V:   v,
 		E:   0,
-		adj: make([]*Bag[*Edge], v),
+		adj: make([]*lib.Bag[*lib.Edge], v),
 	}
 	for i := 0; i < v; i++ {
-		g.adj[i] = NewBag[*Edge]()
+		g.adj[i] = lib.NewBag[*lib.Edge]()
 	}
 	return g
 }
@@ -51,23 +53,23 @@ func NewEdgeWeightedGraphByFile(fileName string) *EdgeWeightedGraph {
 		v, _ := strconv.Atoi(arr[0])
 		w, _ := strconv.Atoi(arr[1])
 		weight, _ := strconv.ParseFloat(arr[2], 64)
-		g.AddEdge(NewEdge(v, w, weight))
+		g.AddEdge(lib.NewEdge(v, w, weight))
 	}
 
 	return g
 }
 
 // 添加边
-func (g *EdgeWeightedGraph) AddEdge(e *Edge) {
-	v := e.eigher()
-	w := e.other(v)
+func (g *EdgeWeightedGraph) AddEdge(e *lib.Edge) {
+	v := e.Eigher()
+	w := e.Other(v)
 	g.adj[v].Add(e)
 	g.adj[w].Add(e)
 	g.E++
 }
 
 // 与v相邻的所有顶点
-func (g *EdgeWeightedGraph) Adj(v int) *Bag[*Edge] {
+func (g *EdgeWeightedGraph) Adj(v int) *lib.Bag[*lib.Edge] {
 	return g.adj[v]
 }
 
@@ -80,12 +82,12 @@ func (g *EdgeWeightedGraph) String() string {
 	return res
 }
 
-func (g *EdgeWeightedGraph) Edges() []*Edge {
-	res := make([]*Edge, 0)
+func (g *EdgeWeightedGraph) Edges() []*lib.Edge {
+	res := make([]*lib.Edge, 0)
 	for v := 0; v < g.V; v++ {
 		for _, e := range g.Adj(v).Data() {
 			// 7-1 在 1-7已经被加入过了
-			if e.other(v) > v {
+			if e.Other(v) > v {
 				res = append(res, e)
 			}
 		}

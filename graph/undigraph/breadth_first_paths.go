@@ -1,6 +1,8 @@
-package graph
+package undigraph
 
-import "github.com/ericluj/algorithms-go/lib"
+import (
+	"github.com/ericluj/algorithms-go/lib"
+)
 
 // 广度优先搜索查找图中路径
 type BreadthFirstPaths struct {
@@ -20,7 +22,7 @@ func NewBreadthFirstPaths(g *Graph, s int) *BreadthFirstPaths {
 }
 
 func (b *BreadthFirstPaths) bfs(g *Graph, s int) {
-	queue := NewQueue[int]()
+	queue := lib.NewQueue[int]()
 	b.marked[s] = true // 标记起点
 	queue.Enqueue(s)   // 将它加入队列
 	for !queue.IsEmpty() {
@@ -39,7 +41,7 @@ func (b *BreadthFirstPaths) hasPathTo(v int) bool {
 	return b.marked[v]
 }
 
-func (b *BreadthFirstPaths) pathTo(v int) *lib.Stack {
+func (b *BreadthFirstPaths) PathTo(v int) *lib.Stack {
 	path := lib.NewStack()
 	if !b.hasPathTo(v) {
 		return path

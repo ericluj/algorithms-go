@@ -1,4 +1,4 @@
-package graph
+package undigraph
 
 import (
 	"bufio"
@@ -6,15 +6,15 @@ import (
 	"strings"
 )
 
-// 有向符号图
-type SymbolDigraph struct {
+// 符号图
+type SymbolGraph struct {
 	st   map[string]int // 符号名 -> 索引
 	keys []string       // 索引 -> 符号名
-	g    *Digraph       // 有向图
+	g    *Graph         // 图
 }
 
-// 从文件中读入一幅有向符号图
-func NewSymbolDigraphByFile(fileName, separator string) *SymbolDigraph {
+// 从文件中读入一幅符号图
+func NewSymbolGraphByFile(fileName, separator string) *SymbolGraph {
 	f, err := os.Open(fileName)
 	if err != nil {
 		return nil
@@ -27,7 +27,7 @@ func NewSymbolDigraphByFile(fileName, separator string) *SymbolDigraph {
 	}
 	defer f2.Close()
 
-	sg := &SymbolDigraph{
+	sg := &SymbolGraph{
 		st: make(map[string]int),
 	}
 
@@ -48,7 +48,7 @@ func NewSymbolDigraphByFile(fileName, separator string) *SymbolDigraph {
 	}
 
 	// 第二遍 构造图
-	sg.g = NewDigraph(len(sg.st))
+	sg.g = NewGraph(len(sg.st))
 	scanner2 := bufio.NewScanner(f2)
 	for scanner2.Scan() {
 		arr := strings.Split(scanner2.Text(), separator)
@@ -61,17 +61,21 @@ func NewSymbolDigraphByFile(fileName, separator string) *SymbolDigraph {
 	return sg
 }
 
-func (sg *SymbolDigraph) Contains(s string) bool {
+func (sg *SymbolGraph) Contains(s string) bool {
 	if _, ok := sg.st[s]; ok {
 		return true
 	}
 	return false
 }
 
-func (sg *SymbolDigraph) Index(s string) int {
+func (sg *SymbolGraph) Index(s string) int {
 	return sg.st[s]
 }
 
-func (sg *SymbolDigraph) Name(v int) string {
+func (sg *SymbolGraph) Name(v int) string {
 	return sg.keys[v]
+}
+
+func (sg *SymbolGraph) G() *Graph {
+	return sg.g
 }

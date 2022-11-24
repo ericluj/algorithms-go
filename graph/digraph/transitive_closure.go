@@ -1,4 +1,4 @@
-package graph
+package digraph
 
 // 有向图的顶点对可达性
 type TransitiveClosure struct {
@@ -15,6 +15,6 @@ func NewTransitiveClosure(g *Digraph) *TransitiveClosure {
 	return t
 }
 
-func (t *TransitiveClosure) reachable(v, w int) bool {
+func (t *TransitiveClosure) Reachable(v, w int) bool {
 	return t.all[v].marked[w]
 }

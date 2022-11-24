@@ -1,9 +1,9 @@
-package graph
+package digraph
 
 import "github.com/ericluj/algorithms-go/lib"
 
 type Topological struct {
-	order *lib.Stack // 顶点的拓扑顺序
+	Order *lib.Stack // 顶点的拓扑顺序
 }
 
 // 拓扑排序：给定一副有向图，将所有顶点排序，使得所有边均从排在前面的元素指向排在后面的元素（或者说明无法做到这一点）
@@ -12,9 +12,9 @@ func NewTopological(g *Digraph) *Topological {
 	// 一副有向无环图的拓扑排序即为所有顶点的逆后序排列
 	t := &Topological{}
 	cycleFinder := NewDirectedCycle(g)
-	if !cycleFinder.hasCycle() {
+	if !cycleFinder.HasCycle() {
 		dfo := NewDepthFirstOrder(g)
-		t.order = dfo.reversePost
+		t.Order = dfo.ReversePost
 	}
 	return t
 }

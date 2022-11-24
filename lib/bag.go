@@ -1,4 +1,4 @@
-package graph
+package lib
 
 // Bag数据结构，使用了范型
 type BagT interface {

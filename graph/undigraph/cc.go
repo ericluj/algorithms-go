@@ -1,21 +1,21 @@
-package graph
+package undigraph
 
 // 深度优先搜索找出图中所有连通分量
 type CC struct {
 	marked []bool
-	id     []int
-	count  int
+	Id     []int
+	Count  int
 }
 
 func NewCC(g *Graph) *CC {
 	cc := &CC{
 		marked: make([]bool, g.V),
-		id:     make([]int, g.V),
+		Id:     make([]int, g.V),
 	}
 	for s := 0; s < g.V; s++ {
 		if !cc.marked[s] {
 			cc.dfs(g, s)
-			cc.count++
+			cc.Count++
 		}
 	}
 	return cc
@@ -23,7 +23,7 @@ func NewCC(g *Graph) *CC {
 
 func (cc *CC) dfs(g *Graph, v int) {
 	cc.marked[v] = true
-	cc.id[v] = cc.count
+	cc.Id[v] = cc.Count
 	for _, w := range g.Adj(v).Data() {
 		if !cc.marked[w] {
 			cc.dfs(g, w)
@@ -31,6 +31,6 @@ func (cc *CC) dfs(g *Graph, v int) {
 	}
 }
 
-func (cc *CC) connected(v, w int) bool {
-	return cc.id[v] == cc.id[w]
+func (cc *CC) Connected(v, w int) bool {
+	return cc.Id[v] == cc.Id[w]
 }

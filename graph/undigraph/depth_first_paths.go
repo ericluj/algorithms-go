@@ -1,4 +1,4 @@
-package graph
+package undigraph
 
 import "github.com/ericluj/algorithms-go/lib"
 
@@ -34,7 +34,7 @@ func (d *DepthFirstPaths) hasPathTo(v int) bool {
 	return d.marked[v]
 }
 
-func (d *DepthFirstPaths) pathTo(v int) *lib.Stack {
+func (d *DepthFirstPaths) PathTo(v int) *lib.Stack {
 	path := lib.NewStack()
 	if !d.hasPathTo(v) {
 		return path

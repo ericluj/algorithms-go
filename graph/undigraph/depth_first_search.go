@@ -1,4 +1,4 @@
-package graph
+package undigraph
 
 // 深度优先搜索
 type DepthFirstSearch struct {

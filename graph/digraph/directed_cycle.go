@@ -1,4 +1,4 @@
-package graph
+package digraph
 
 import "github.com/ericluj/algorithms-go/lib"
 
@@ -33,7 +33,7 @@ func (dc *DirectedCycle) dfs(g *Digraph, v int) {
 	dc.marked[v] = true
 
 	for _, w := range g.Adj(v).Data() {
-		if dc.hasCycle() { // 已经有环，结束
+		if dc.HasCycle() { // 已经有环，结束
 			return
 		} else if !dc.marked[w] { // 没有递归过的顶点，继续递归
 			// 通过数组构造指向关系树
@@ -52,7 +52,7 @@ func (dc *DirectedCycle) dfs(g *Digraph, v int) {
 	dc.onStack[v] = false
 }
 
-func (dc *DirectedCycle) hasCycle() bool {
+func (dc *DirectedCycle) HasCycle() bool {
 	return dc.cycle != nil
 }
 
