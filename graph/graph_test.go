@@ -6,6 +6,7 @@ import (
 
 	"github.com/ericluj/algorithms-go/graph/digraph"
 	"github.com/ericluj/algorithms-go/graph/mst"
+	"github.com/ericluj/algorithms-go/graph/sp"
 	"github.com/ericluj/algorithms-go/graph/undigraph"
 	"github.com/ericluj/algorithms-go/lib"
 )
@@ -181,4 +182,10 @@ func TestKruskalMST(t *testing.T) {
 	g := mst.NewEdgeWeightedGraphByFile("./data/tinyEWG.txt")
 	k := mst.NewKruskalMST(g)
 	fmt.Println(k.Mst)
+}
+
+// 加权有向图
+func TestEdgeWeightedDigraph(t *testing.T) {
+	g := sp.NewEdgeWeightedDigraphByFile("./data/tinyEWD.txt")
+	fmt.Println(g)
 }

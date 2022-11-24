@@ -2,7 +2,7 @@ package lib
 
 // Bag数据结构，使用了范型
 type BagT interface {
-	int | *Edge
+	int | *Edge | *DirectedEdge
 }
 
 type Bag[T BagT] struct {
