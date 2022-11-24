@@ -66,6 +66,7 @@ func TestMergeBu(t *testing.T) {
 	IsSorted(t, data)
 }
 
+// 快速排序
 func TestQuick(t *testing.T) {
 	Quick(data)
 	IsSorted(t, data)
