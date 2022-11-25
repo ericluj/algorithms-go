@@ -72,6 +72,7 @@ func TestQuick(t *testing.T) {
 	IsSorted(t, data)
 }
 
+// 三向切分的快速排序
 func TestQuick3way(t *testing.T) {
 	Quick3way(data)
 	IsSorted(t, data)
