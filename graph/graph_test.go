@@ -196,6 +196,16 @@ func TestDijkstraSP(t *testing.T) {
 	s := 0
 	d := sp.NewDijkstraSP(g, s)
 	for v := 0; v < g.V; v++ {
-		fmt.Printf("%d to %d: %v\n", s, v, d.PathTo(v))
+		fmt.Printf("%d to %d (%.2f): %v\n", s, v, d.DistTo[v], d.PathTo(v))
+	}
+}
+
+// 无环加权有向图的最短路径算法
+func TestAcyclicSP(t *testing.T) {
+	g := sp.NewEdgeWeightedDigraphByFile("./data/tinyEWDAG.txt")
+	s := 5
+	d := sp.NewAcyclicSP(g, s)
+	for v := 0; v < g.V; v++ {
+		fmt.Printf("%d to %d (%.2f): %v\n", s, v, d.DistTo[v], d.PathTo(v))
 	}
 }
