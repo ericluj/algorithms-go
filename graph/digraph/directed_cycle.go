@@ -6,8 +6,8 @@ import "github.com/ericluj/algorithms-go/lib"
 type DirectedCycle struct {
 	marked  []bool
 	edgeTo  []int
-	cycle   *lib.Stack // 有向环中的所有顶点（如果存在）
-	onStack []bool     // 递归调用的栈上的所有顶点
+	cycle   *lib.Stack[int] // 有向环中的所有顶点（如果存在）
+	onStack []bool          // 递归调用的栈上的所有顶点
 }
 
 func NewDirectedCycle(g *Digraph) *DirectedCycle {
@@ -41,7 +41,7 @@ func (dc *DirectedCycle) dfs(g *Digraph, v int) {
 			dc.edgeTo[w] = v
 			dc.dfs(g, w)
 		} else if dc.onStack[w] { // 遇到递归过的顶点，并且是本次递归中的，那么说明有一个环了
-			dc.cycle = lib.NewStack()
+			dc.cycle = lib.NewStack[int]()
 			for x := v; x != w; x = dc.edgeTo[x] {
 				dc.cycle.Push(x)
 			}
@@ -56,6 +56,6 @@ func (dc *DirectedCycle) HasCycle() bool {
 	return dc.cycle != nil
 }
 
-func (dc *DirectedCycle) Cycle() *lib.Stack {
+func (dc *DirectedCycle) Cycle() *lib.Stack[int] {
 	return dc.cycle
 }

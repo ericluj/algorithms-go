@@ -37,13 +37,13 @@ func (b *BreadthFirstPaths) bfs(g *Graph, s int) {
 	}
 }
 
-func (b *BreadthFirstPaths) hasPathTo(v int) bool {
+func (b *BreadthFirstPaths) HasPathTo(v int) bool {
 	return b.marked[v]
 }
 
-func (b *BreadthFirstPaths) PathTo(v int) *lib.Stack {
-	path := lib.NewStack()
-	if !b.hasPathTo(v) {
+func (b *BreadthFirstPaths) PathTo(v int) *lib.Stack[int] {
+	path := lib.NewStack[int]()
+	if !b.HasPathTo(v) {
 		return path
 	}
 

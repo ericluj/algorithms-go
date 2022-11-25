@@ -189,3 +189,13 @@ func TestEdgeWeightedDigraph(t *testing.T) {
 	g := sp.NewEdgeWeightedDigraphByFile("./data/tinyEWD.txt")
 	fmt.Println(g)
 }
+
+// 最短路径的Dijkstra算法
+func TestDijkstraSP(t *testing.T) {
+	g := sp.NewEdgeWeightedDigraphByFile("./data/tinyEWD.txt")
+	s := 0
+	d := sp.NewDijkstraSP(g, s)
+	for v := 0; v < g.V; v++ {
+		fmt.Printf("%d to %d: %v\n", s, v, d.PathTo(v))
+	}
+}

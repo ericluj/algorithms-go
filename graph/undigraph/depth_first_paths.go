@@ -30,13 +30,13 @@ func (d *DepthFirstPaths) dfs(g *Graph, v int) {
 	}
 }
 
-func (d *DepthFirstPaths) hasPathTo(v int) bool {
+func (d *DepthFirstPaths) HasPathTo(v int) bool {
 	return d.marked[v]
 }
 
-func (d *DepthFirstPaths) PathTo(v int) *lib.Stack {
-	path := lib.NewStack()
-	if !d.hasPathTo(v) {
+func (d *DepthFirstPaths) PathTo(v int) *lib.Stack[int] {
+	path := lib.NewStack[int]()
+	if !d.HasPathTo(v) {
 		return path
 	}
 
