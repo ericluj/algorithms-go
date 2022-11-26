@@ -209,3 +209,13 @@ func TestAcyclicSP(t *testing.T) {
 		fmt.Printf("%d to %d (%.2f): %v\n", s, v, d.DistTo[v], d.PathTo(v))
 	}
 }
+
+// 无环加权有向图的最长路径算法
+func TestAcyclicLP(t *testing.T) {
+	g := sp.NewEdgeWeightedDigraphByFile("./data/tinyEWDAG.txt")
+	s := 5
+	d := sp.NewAcyclicLP(g, s)
+	for v := 0; v < g.V; v++ {
+		fmt.Printf("%d to %d (%.2f): %v\n", s, v, d.DistTo[v], d.PathTo(v))
+	}
+}
