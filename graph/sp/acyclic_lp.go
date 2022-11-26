@@ -18,7 +18,7 @@ func NewAcyclicLP(g *EdgeWeightedDigraph, s int) *AcyclicLP {
 		DistTo: make([]float64, g.V),
 	}
 
-	// 初始每个顶点给最大值
+	// 初始每个顶点给最小值，这样第一条边一定大于会被放入
 	for v := 0; v < g.V; v++ {
 		d.DistTo[v] = math.SmallestNonzeroFloat64
 	}
@@ -27,6 +27,7 @@ func NewAcyclicLP(g *EdgeWeightedDigraph, s int) *AcyclicLP {
 
 	top := NewTopological(g)
 	for _, v := range top.Order.Data() {
+		// 这里没有加判断，所以起点实际上固定为拓扑排序的第一个值
 		d.RelaxV(g, v)
 	}
 
@@ -37,6 +38,7 @@ func NewAcyclicLP(g *EdgeWeightedDigraph, s int) *AcyclicLP {
 func (d *AcyclicLP) RelaxV(g *EdgeWeightedDigraph, v int) {
 	for _, e := range g.Adj(v).Data() {
 		w := e.To()
+		// 若边e引入大于之前最大的值，则e属于最长路径
 		if d.DistTo[w] < d.DistTo[v]+e.Weight {
 			d.DistTo[w] = d.DistTo[v] + e.Weight
 			d.EdgeTo[w] = e
