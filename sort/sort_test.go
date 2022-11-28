@@ -77,3 +77,19 @@ func TestQuick3way(t *testing.T) {
 	Quick3way(data)
 	IsSorted(t, data)
 }
+
+// 基于堆的优先队列
+func TestMaxPQ(t *testing.T) {
+	pq := NewMaxPQ(len(data))
+	for _, item := range data {
+		pq.Insert(item)
+	}
+
+	res := make([]int, len(data))
+	i := len(data) - 1
+	for !pq.IsEmpty() {
+		res[i] = pq.DelMax()
+		i--
+	}
+	IsSorted(t, res)
+}
