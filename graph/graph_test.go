@@ -219,3 +219,13 @@ func TestAcyclicLP(t *testing.T) {
 		fmt.Printf("%d to %d (%.2f): %v\n", s, v, d.DistTo[v], d.PathTo(v))
 	}
 }
+
+// 无环加权有向图的最长路径算法
+func TestCPM(t *testing.T) {
+	c := sp.NewCPM("./data/jobsPC.txt")
+	fmt.Printf("Start times:\n")
+	for i := 0; i < c.N; i++ {
+		fmt.Printf("%d : %.1f\n", i, c.LP.DistTo[i])
+	}
+	fmt.Printf("Finish time: %.1f\n", c.LP.DistTo[c.T])
+}
