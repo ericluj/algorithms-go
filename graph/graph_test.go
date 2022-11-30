@@ -220,7 +220,7 @@ func TestAcyclicLP(t *testing.T) {
 	}
 }
 
-// 无环加权有向图的最长路径算法
+// 优先级限制下的并行任务调度问题的关键路径方法
 func TestCPM(t *testing.T) {
 	c := sp.NewCPM("./data/jobsPC.txt")
 	fmt.Printf("Start times:\n")
@@ -228,4 +228,15 @@ func TestCPM(t *testing.T) {
 		fmt.Printf("%d : %.1f\n", i, c.LP.DistTo[i])
 	}
 	fmt.Printf("Finish time: %.1f\n", c.LP.DistTo[c.T])
+}
+
+// 基于队列的BellmanFord算法
+func TestBellmanFordSP(t *testing.T) {
+	g := sp.NewEdgeWeightedDigraphByFile("./data/tinyEWDn.txt")
+	s := 0
+	d := sp.NewBellmanFordSP(g, s)
+	for v := 0; v < g.V; v++ {
+		fmt.Printf("%d to %d (%.2f): %v\n", s, v, d.DistTo[v], d.PathTo(v))
+	}
+	fmt.Println(d.Cycle)
 }
