@@ -53,10 +53,10 @@ func (b *BellmanFordSP) RelaxV(g *EdgeWeightedDigraph, v int) {
 			}
 		}
 		// 每调用V次RelaxV后检查负权重环
+		b.Cost++
 		if b.Cost%g.V == 0 {
 			b.FindNegativeCycle()
 		}
-		b.Cost++
 	}
 }
 

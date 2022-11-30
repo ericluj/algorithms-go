@@ -43,10 +43,12 @@ func (dc *DirectedCycle) dfs(g *EdgeWeightedDigraph, v int) {
 			dc.dfs(g, w)
 		} else if dc.onStack[w] { // 遇到递归过的顶点，并且是本次递归中的，那么说明有一个环了
 			dc.cycle = lib.NewStack[*lib.DirectedEdge]()
-			for x := e; x.From() != w; x = dc.edgeTo[x.From()] {
-				dc.cycle.Push(x)
+			f := e
+			for f.From() != w {
+				dc.cycle.Push(f)
+				f = dc.edgeTo[f.From()]
 			}
-			dc.cycle.Push(e)
+			dc.cycle.Push(f)
 		}
 	}
 	dc.onStack[v] = false

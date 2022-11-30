@@ -31,8 +31,11 @@
 | 最小生成树的Kruskal算法        | KruskalMST        |
 
 ## 最短路径
-| 名称                         | 结构体              |
-| ---------------------------- | ------------------- |
-| 加权有向图                   | EdgeWeightedDigraph |
-| 最短路径的Dijkstra算法       | DijkstraSP          |
-| 无环加权有向图的最短路径算法 | AcyclicSP           |
+| 名称                                         | 结构体              |
+| -------------------------------------------- | ------------------- |
+| 加权有向图                                   | EdgeWeightedDigraph |
+| 最短路径的Dijkstra算法                       | DijkstraSP          |
+| 无环加权有向图的最短路径算法                 | AcyclicSP           |
+| 无环加权有向图的最长路径算法                 | AcyclicLP           |
+| 优先级限制下的并行任务调度问题的关键路径方法 | CPM                 |
+| 基于队列的BellmanFord算法                    | BellmanFordSP       |

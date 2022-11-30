@@ -239,4 +239,11 @@ func TestBellmanFordSP(t *testing.T) {
 		fmt.Printf("%d to %d (%.2f): %v\n", s, v, d.DistTo[v], d.PathTo(v))
 	}
 	fmt.Println(d.Cycle)
+
+	g2 := sp.NewEdgeWeightedDigraphByFile("./data/tinyEWDnc.txt")
+	d2 := sp.NewBellmanFordSP(g2, s)
+	for v := 0; v < g2.V; v++ {
+		fmt.Printf("%d to %d (%.2f): %v\n", s, v, d.DistTo[v], d.PathTo(v))
+	}
+	fmt.Println(d2.Cycle)
 }
