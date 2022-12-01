@@ -7,8 +7,8 @@ import "github.com/ericluj/algorithms-go/lib"
 // 数组表示二叉堆：数据中按照层级存储（索引为0的位置不使用）
 // 位置k的结点的父结点的位置为k/2，它的两个子结点位置为2k和2k+1
 type MaxPQ struct {
-	pq []int // 基于堆的完全二叉树
-	N  int   // 存储于pq[1..N]中，pq[0]没有使用
+	pq []int // 基于堆的完全二叉树，存储于pq[1..N]中，pq[0]没有使用
+	N  int   // 队列元素数量
 }
 
 func NewMaxPQ(maxN int) *MaxPQ {
@@ -61,7 +61,7 @@ func (p *MaxPQ) Sink(k int) {
 			j++
 		}
 		// 如果结点k大于它的两个子结点，无需下沉
-		if p.pq[k] >= p.pq[j] {
+		if p.pq[k] > p.pq[j] {
 			break
 		}
 		// 将结点k与子结点中较大的结点交换位置

@@ -93,3 +93,25 @@ func TestMaxPQ(t *testing.T) {
 	}
 	IsSorted(t, res)
 }
+
+// 基于堆的优先队列
+func TestIndexMinPQ(t *testing.T) {
+	pq := NewIndexMinPQ(10)
+	pq.Insert(1, 3.7)
+	pq.Insert(1, 5.6)
+	pq.Insert(2, 7.5)
+	pq.Insert(3, 4.4)
+	pq.Insert(4, 12.3)
+	pq.Insert(5, 6.6)
+	pq.Insert(6, 9.8)
+	pq.Insert(7, 10.1)
+	pq.Insert(8, 15.8)
+	pq.Insert(9, 1.1)
+
+	res := make([]int, 0)
+	for !pq.IsEmpty() {
+		i := pq.DelMin()
+		res = append(res, i)
+	}
+	fmt.Println(res)
+}
