@@ -94,7 +94,7 @@ func TestMaxPQ(t *testing.T) {
 	IsSorted(t, res)
 }
 
-// 基于堆的优先队列
+// 关联索引的优先队列
 func TestIndexMinPQ(t *testing.T) {
 	pq := NewIndexMinPQ(10)
 	pq.Insert(1, 3.7)
@@ -114,4 +114,10 @@ func TestIndexMinPQ(t *testing.T) {
 		res = append(res, i)
 	}
 	fmt.Println(res)
+}
+
+// 堆排序
+func TestHeap(t *testing.T) {
+	Heap(data)
+	IsSorted(t, data)
 }
