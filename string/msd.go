@@ -73,7 +73,7 @@ func (msd *MSD) sort(a []string, lo, hi, d int) {
 func insertion(a []string, lo, hi, d int) {
 	for i := lo; i <= hi; i++ {
 		for j := i; j > lo && less(a[j], a[j-1], d); j-- {
-			exch(a, j, j-1)
+			lib.ExchS(a, j, j-1)
 		}
 	}
 }
@@ -88,8 +88,4 @@ func less(v string, w string, d int) bool {
 		}
 	}
 	return len(v) < len(w)
-}
-
-func exch(a []string, i, j int) {
-	a[i], a[j] = a[j], a[i]
 }

@@ -50,3 +50,26 @@ func TestMSD(t *testing.T) {
 	msd.Sort(data)
 	fmt.Println(data)
 }
+
+// 三向字符串快速排序
+func TestQuick3string(t *testing.T) {
+	data := []string{
+		"she",
+		"sells",
+		"seashells",
+		"by",
+		"the",
+		"sea",
+		"shore",
+		"the",
+		"shells",
+		"she",
+		"sells",
+		"are",
+		"surely",
+		"seashells",
+	}
+	q := NewQuick3string()
+	q.Sort(data)
+	fmt.Println(data)
+}
