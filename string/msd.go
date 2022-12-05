@@ -59,7 +59,7 @@ func (msd *MSD) sort(a []string, lo, hi, d int) {
 
 	// 回写
 	for i := lo; i <= hi; i++ {
-		a[i] = msd.aux[i-lo]
+		a[i] = msd.aux[i-lo] // 因为aux辅助数组只用到了最前面的部分（aux[0]<=>a[lo]）
 	}
 
 	// 递归的以每个字符为键进行排序
