@@ -16,7 +16,7 @@ func (lsd *LSD) Sort(a []string, w int) {
 	for d := w - 1; d >= 0; d-- {
 		// 根据第d个字符用键索引计数法排序
 
-		// 计算出现频率
+		// 计算出现频率（count[0]不使用）
 		count := make([]int, R+1)
 		for i := 0; i < N; i++ {
 			count[a[i][d]+1]++

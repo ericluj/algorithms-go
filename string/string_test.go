@@ -26,3 +26,27 @@ func TestLSD(t *testing.T) {
 	lsd.Sort(data, 7)
 	fmt.Println(data)
 }
+
+// 高位优先的字符串排序
+func TestMSD(t *testing.T) {
+	dt := []string{
+		"she",
+		"sells",
+		"seashells",
+		"by",
+		"the",
+		"sea",
+		"shore",
+		"the",
+		"shells",
+		"she",
+		"sells",
+		"are",
+		"surely",
+		"seashells",
+	}
+	data := append(dt, dt...)
+	msd := NewMSD()
+	msd.Sort(data)
+	fmt.Println(data)
+}
