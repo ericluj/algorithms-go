@@ -4,7 +4,7 @@ import "fmt"
 
 // 队列 FIFO 先进先出
 type QueueT interface {
-	int | *Edge
+	int | *Edge | string
 }
 
 type Queue[T QueueT] struct {

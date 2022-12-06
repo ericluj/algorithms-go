@@ -73,3 +73,30 @@ func TestQuick3string(t *testing.T) {
 	q.Sort(data)
 	fmt.Println(data)
 }
+
+// 基于单词查找树的符号表
+func TestTrieST(t *testing.T) {
+	st := NewTrieST()
+	// Put
+	st.Put("shells", 1)
+	st.Put("she", 2)
+	st.Put("shr", 3)
+	// Get
+	fmt.Println(st.Get("sh"))
+	fmt.Println(st.Get("she"))
+	fmt.Println(st.Get("she1"))
+	// 前缀匹配
+	fmt.Println(st.KeysPrefix("she"))
+	// 获取所有
+	fmt.Println(st.Keys())
+	// 通配符匹配
+	fmt.Println(st.KeysThatMatch("shw"))
+	fmt.Println(st.KeysThatMatch("shr"))
+	fmt.Println(st.KeysThatMatch("sh."))
+	// 最长键前缀
+	fmt.Println(st.LongestPrefixOf("shellsw"))
+	// Delete
+	st.Delete("she")
+	fmt.Println(st.Get("she"))
+	fmt.Println(st.Get("shells"))
+}
