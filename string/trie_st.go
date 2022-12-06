@@ -144,6 +144,7 @@ func (t *TrieST) delete(x *Node, key string, d int) *Node {
 		x.Val = nil
 	} else { // 还没找到则继续寻找
 		c := key[d]
+		// 递归删除，如果删除子节点使父节点所有链接也为空，继续删除父节点
 		x.Next[c] = t.delete(x.Next[c], key, d+1)
 	}
 
