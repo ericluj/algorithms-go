@@ -113,3 +113,12 @@ func TestTST(t *testing.T) {
 	fmt.Println(st.Get("she"))
 	fmt.Println(st.Get("she1"))
 }
+
+// 暴力子字符串查找
+func TestViolence(t *testing.T) {
+	v := NewViolence()
+	fmt.Println(v.Search("se", "teesell"))
+	fmt.Println(v.Search("rt", "teesell"))
+	fmt.Println(v.Search2("se", "teesell"))
+	fmt.Println(v.Search2("rt", "teesell"))
+}
