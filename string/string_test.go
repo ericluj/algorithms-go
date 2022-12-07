@@ -100,3 +100,16 @@ func TestTrieST(t *testing.T) {
 	fmt.Println(st.Get("she"))
 	fmt.Println(st.Get("shells"))
 }
+
+// 基于三向单词查找树的符号表
+func TestTST(t *testing.T) {
+	st := NewTST()
+	// Put
+	st.Put("shells", 1)
+	st.Put("she", 2)
+	st.Put("shr", 3)
+	// Get
+	fmt.Println(st.Get("sh"))
+	fmt.Println(st.Get("she"))
+	fmt.Println(st.Get("she1"))
+}
