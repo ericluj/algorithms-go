@@ -131,7 +131,7 @@ func (t *TrieST) search(x *Node, s string, d, length int) int {
 }
 
 func (t *TrieST) Delete(key string) {
-	t.delete(t.Root, key, 0)
+	t.Root = t.delete(t.Root, key, 0)
 }
 
 func (t *TrieST) delete(x *Node, key string, d int) *Node {

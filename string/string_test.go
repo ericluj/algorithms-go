@@ -108,10 +108,17 @@ func TestTST(t *testing.T) {
 	st.Put("shells", 1)
 	st.Put("she", 2)
 	st.Put("shr", 3)
+	st.Put("by", 4)
 	// Get
 	fmt.Println(st.Get("sh"))
 	fmt.Println(st.Get("she"))
 	fmt.Println(st.Get("she1"))
+	// Delete
+	st.Delete("she")
+	fmt.Println(st.Get("shells"))
+	fmt.Println(st.Get("she"))
+	fmt.Println(st.Get("shr"))
+	fmt.Println(st.Get("by"))
 }
 
 // 暴力子字符串查找
