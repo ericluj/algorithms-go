@@ -129,3 +129,11 @@ func TestViolence(t *testing.T) {
 	fmt.Println(v.Search2("se", "teesell"))
 	fmt.Println(v.Search2("rt", "teesell"))
 }
+
+// Knuth-Morris-Pratt字符串查找算法
+func TestKMP(t *testing.T) {
+	v := NewKMP("se")
+	fmt.Println(v.Search("teesell"))
+	v2 := NewKMP("rt")
+	fmt.Println(v2.Search("teesell"))
+}
