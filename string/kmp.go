@@ -1,6 +1,8 @@
 package string
 
 // Knuth-Morris-Pratt字符串查找算法
+// DFA（确定有限状态自动机）
+// 重启状态（当C匹配文本字符失败后，会继续使用重启位置处的模式字符和该文本进行匹配）
 type KMP struct {
 	pat string
 	dfa [][]int
@@ -18,16 +20,25 @@ func NewKMP(pat string) *KMP {
 	for i := 0; i < R; i++ {
 		dfa[i] = make([]int, M)
 	}
-	// 定义一个最基础的DFA
-	dfa[pat[0]][0] = 1 // 模式字符串的第一个字符+初始状态0 => 状态1
-	x := 0             // 初始化重启状态
+
+	// 定义一个最基础的DFA（状态0）
+	dfa[pat[0]][0] = 1 // pat[0] + 状态0 => 状态1，列的其他位都是0
+
+	x := 0 // 初始化重启状态
+
+	// 定义状态0后的DFA（1到M-1）
+	// 计算dfa[][j]
 	for j := 1; j < M; j++ {
-		// 计算dfa[][j]
+		// 复制重启状态对应的列
 		for c := 0; c < R; c++ {
-			dfa[c][j] = dfa[c][x] // 复制匹配失败情况下的值
+			dfa[c][j] = dfa[c][x]
 		}
-		dfa[pat[j]][j] = j + 1 // 设置匹配成功情况下的值
-		x = dfa[pat[j]][x]     // 更新重启状态
+
+		// 设置匹配成功情况下的值（成功时下一状态为j+1）
+		dfa[pat[j]][j] = j + 1
+
+		// 更新重启状态
+		x = dfa[pat[j]][x]
 	}
 
 	k.dfa = dfa
@@ -42,8 +53,8 @@ func (k *KMP) Search(txt string) int {
 	j := 0
 
 	// 字符的不断输入会让状态机的状态变化
-	// 直到变为最终状态M
-	// 或者跑完所有输入字符
+	// 直到变为最终状态j=M
+	// 或者跑完所有输入字符i=N
 	for ; i < N && j < M; i++ {
 		j = k.dfa[txt[i]][j]
 	}
