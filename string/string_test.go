@@ -137,3 +137,11 @@ func TestKMP(t *testing.T) {
 	v2 := NewKMP("rt")
 	fmt.Println(v2.Search("teesell"))
 }
+
+// Boyer-Moore字符串匹配算法（启发式地处理不匹配的字符）
+func TestBoyerMoore(t *testing.T) {
+	v := NewBoyerMoore("se")
+	fmt.Println(v.Search("teesell"))
+	v2 := NewBoyerMoore("rt")
+	fmt.Println(v2.Search("teesell"))
+}
