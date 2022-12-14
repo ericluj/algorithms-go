@@ -25,6 +25,7 @@ func NewRabinKarp(pat string) *RabinKarp {
 	return r
 }
 
+// 为了避免哈希碰撞，这里其实可以设置一个更大的素数
 func longRandomPrime() int64 {
 	return 997
 }
@@ -58,6 +59,7 @@ func (r *RabinKarp) Search(txt string) int {
 	for i := r.M; i < N; i++ {
 		// 减去第一个数字，加上最后一个数字，再次检查匹配
 		// 额外加上一个Q来保证所有数均为正，这样取余操作才能得到预期的效果
+		// 因为hash()方法每一步都取余，所以这里也多次取余才能对应上
 		txtHash = (txtHash + r.Q - r.RM*int64(txt[i-r.M])%r.Q) % r.Q
 		txtHash = (txtHash*r.R + int64(txt[i])) % r.Q
 		if r.patHash == txtHash && r.check(txt, i-r.M+1) {
