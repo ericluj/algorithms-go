@@ -145,3 +145,11 @@ func TestBoyerMoore(t *testing.T) {
 	v2 := NewBoyerMoore("rt")
 	fmt.Println(v2.Search("teesell"))
 }
+
+// Rabin-Karp指纹字符串查找算法
+func TestRabinKarp(t *testing.T) {
+	v := NewRabinKarp("se")
+	fmt.Println(v.Search("teesell"))
+	v2 := NewRabinKarp("rt")
+	fmt.Println(v2.Search("teesell"))
+}
