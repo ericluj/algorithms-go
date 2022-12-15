@@ -153,3 +153,24 @@ func TestRabinKarp(t *testing.T) {
 	v2 := NewRabinKarp("rt")
 	fmt.Println(v2.Search("teesell"))
 }
+
+// 正则表达式的模式匹配（grep)
+func TestNFA(t *testing.T) {
+	data := []string{
+		"AC",
+		"AD",
+		"AAA",
+		"ABD",
+		"ADD",
+		"BCD",
+		"ABCCBD",
+		"BABAAA",
+		"BABBAAA",
+	}
+	n := NewNFA("(A*B|AC)D")
+	for _, v := range data {
+		if n.Recognizes(v) {
+			fmt.Println(v)
+		}
+	}
+}

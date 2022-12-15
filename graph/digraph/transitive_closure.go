@@ -16,5 +16,5 @@ func NewTransitiveClosure(g *Digraph) *TransitiveClosure {
 }
 
 func (t *TransitiveClosure) Reachable(v, w int) bool {
-	return t.all[v].marked[w]
+	return t.all[v].Marked[w]
 }
